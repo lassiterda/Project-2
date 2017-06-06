@@ -1,0 +1,33 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.10",
+    "mysql": "^2.13.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-http": "^0.3.0",
+    "sequelize": "^3.30.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaySeeCode/Project-2.git"
+  },
+  "author": "Eric King, Juan Carlos Gonzalez, Jerry Poyntz, David Lassiter",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaySeeCode/Project-2/issues"
+  },
+  "homepage": "https://github.com/JaySeeCode/Project-2#readme"
+}
