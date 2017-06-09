@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 
 //Setup Express App and define PORT number
 const app = express();
-
+const apiRouter = require("./routes/api-routes");
 // ---START MIDDLEWARE---
 
 //mounting handlebars as app view engine
@@ -57,7 +57,9 @@ var db = require("./db/models");
 // require("./db/associations")(db);
 
 require('./routes/html-routes.js')(app);
-require('./routes/api-routes.js')(app);
+//require('./routes/api-routes.js')(app);
+//use this router for all api routes...dont need to write api every time
+app.use("/api", apiRouter);
 require('./routes/user-routes.js')(app);
 
 
