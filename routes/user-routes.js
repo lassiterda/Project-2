@@ -3,40 +3,37 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+//defining local login strategy using brypt to compare hashed pass with input
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    db.Users.findOne({ where: {username: username} })
+    db.User.findOne({ where: {username: username} })
       .then((dbUser) => {
         if(!dbUser) {
           console.log("Incorrect Username");
           return done(null, false, {message: "Incorrect Username"})
         }
-        bcrypt.compare(password, dbUser.password, (err, isMatch) => {
-          if(isMatch) { return done(null, dbUser) }
-          else        { return done(null, false, {message: "Incorrect Password"})}
-        })
+        else {
+
+          return bcrypt.compare(password, dbUser.password)
+          .then((isMatch) => {
+            if(isMatch) {
+              return done(null, dbUser)
+            }
+            else {
+              return done(null, false, {message: "Incorrect Password"})
+            }
+          })
+        }
       })
   })
 )
-
-
-passport.serializeUser(function(user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  db.Users.findById()
-    .then((dbUser) => { done(null, dbUser) })
-    .catch((err) => { done(err, null)})
-});
-
 
 module.exports = (app) => {
 
   app.post("/user/register", (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
-      db.Users.create({
+      db.User.create({
         userName:   req.body.username,
         password:   hash,
            email:   req.body.email,
@@ -56,14 +53,19 @@ module.exports = (app) => {
     })
   });
 
-
   app.post('/user/login',
-  passport.authenticate('local',
+    passport.authenticate('local',
     {
-      successRedirect: '/',
+      successRedirect: '/home',
       failureRedirect: '/login',
       failureFlash: true
     })
-);
+  );
+
+  app.post("/logout", (req, res) => {
+    req.logout();
+    req.flash("success_msg", "You have been logged out.")
+    res.redirect("/login")
+  })
 
 }
