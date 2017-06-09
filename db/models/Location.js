@@ -1,6 +1,6 @@
 
-module.exports = function(sequelize, DataTypes){
-    var location = sequelize.define("location", {
+module.exports = function(sequelize, DataTypes) {
+    let Location = sequelize.define("Location", {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -11,23 +11,17 @@ module.exports = function(sequelize, DataTypes){
         description: {
             type: DataTypes.TEXT,
             allowNull: false,
-            
-            }
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: false,
-            
-            }    
-        },
+            allowNull: false
+            },
         city: {
             type: DataTypes.STRING
         },
         state: {
             type: DataTypes.STRING,
             allowNull: false,
-            
-            }
         },
         zip: {
             type: DataTypes.INTEGER,
@@ -37,7 +31,8 @@ module.exports = function(sequelize, DataTypes){
             }
         },
         numlikes: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         },
         latitude: {
             type: DataTypes.FLOAT,  //INTEGER
@@ -58,30 +53,20 @@ module.exports = function(sequelize, DataTypes){
                 throw new Error('Require either both latitude and longitude or neither')
                  }
               }
-           }         
+           }
         })
-        return location;
+        return Location;
     };
 
-    connection.synch().then(function () {
-        
-    })
-//    {
-  //      classMethods: {
+      //      classMethods: {
 //            associate: function(models)
 //                location.belongsTo(models.User,
 //                  {
 //                     onDelete: "cascade",
 //                     foreignKey: {
-//                       allowNull: false   
+//                       allowNull: false
 //                     }
-//                   }  
+//                   }
 //                });
 //              }
 //            }
-
-
-
-
-
-
