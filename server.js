@@ -55,7 +55,7 @@ const app = express();
       .then((dbUser) => { done(null, dbUser) })
       .catch((err) => { done(err, null)})
   });
-  
+
   // Flash messages Init
   app.use(flash());
 
@@ -72,7 +72,7 @@ const app = express();
 
 //load in sequelize models
 var db = require("./db/models");
-// require("./db/associations")(db);
+require("./db/associations")(db);
 
 //load app routes
 require('./routes/html-routes.js')(app);
