@@ -47,4 +47,82 @@ function initMap() {
 
     //   charlotte 35.227085, -80.843124.
 
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"async defer></script>
+var marker;
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 13,
+    center: {lat: 59.325, lng: 18.070}
+  });
+
+  marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    animation: google.maps.Animation.DROP,
+    position: {lat: 59.327, lng: 18.067}
+  });
+  marker.addListener('click', toggleBounce);
+}
+
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
+}
+
+function drop() {
+  for (var i =0; i < markerArray.length; i++) {
+    setTimeout(function() {
+      addMarkerMethod();
+    }, i * 200);
+  }
+}
+
+  marker.addListener('click', function() {
+    map.setZoom(8);
+    map.setCenter(marker.getPosition());
+  });
+  
+function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: new google.maps.LatLng(-33.91722, 151.23064),
+          mapTypeId: 'roadmap'
+        });
+
+        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+          parking: {
+            icon: iconBase + 'parking_lot_maps.png'
+          },
+          library: {
+            icon: iconBase + 'library_maps.png'
+          },
+          info: {
+            icon: iconBase + 'info-i_maps.png'
+          }
+        };
+
+      var features = [
+          {
+            position: new google.maps.LatLng(-33.91721, 151.22630),
+            type: 'info'
+          },
+          {
+            position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            type: 'parking'
+          }
+      ];
+
+              // Create markers.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        });
+      }
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk&callback=initMap"async defer></script>
