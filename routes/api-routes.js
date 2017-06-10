@@ -1,5 +1,10 @@
-const db = require('./../db/models');
+const router = require("express").Router();
+const locationRouter = require("./locations");
+const triprouter = require("./trips");
+//this assigns all locations to location router  
 
-module.exports = (app) => {
+router.use("/locations", locationRouter);
+router.use("/trips", triprouter);
 
-}
+
+module.exports = router;

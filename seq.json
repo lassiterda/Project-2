@@ -1,0 +1,24 @@
+
+{
+  "development": {
+    "username": "root",
+    "password": "riley272",
+    "database": "walkabout_CLT_db",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
+  },
+  "production": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
+  }
+}
