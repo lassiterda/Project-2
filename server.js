@@ -15,7 +15,7 @@ const app = express();
 // ---START MIDDLEWARE---
 
   //mounting handlebars as app view engine
-  app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+  app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
   app.set("view engine", "handlebars");
 
   //Mounting body-parser/cookie-parser middleware

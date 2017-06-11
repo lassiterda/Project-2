@@ -28,7 +28,7 @@ passport.use(new LocalStrategy(
   })
 )
 
-module.exports = (app) => {
+module.exports = function(app) {
 
   app.post("/user/register", (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
@@ -62,7 +62,7 @@ module.exports = (app) => {
     })
   );
 
-  app.post("/logout", (req, res) => {
+  app.post("user/logout", (req, res) => {
     req.logout();
     req.flash("success_msg", "You have been logged out.")
     res.redirect("/login")

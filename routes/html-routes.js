@@ -9,7 +9,7 @@ const checkAuthenticated = function(req, res, next){
 
 module.exports = function(app) {
 	app.get("/",(req, res) => {
-		res.render('index')
+		res.render('landing')
 	})
 
 	app.get("/register", (req, res) => {
