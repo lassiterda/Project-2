@@ -2,8 +2,10 @@ var rp = require('request-promise');
 const db = require('./../db/models');
 
 module.exports = function(app) {
-  //returns one location
+
+  //returns one location or all locations
   app.get("/api/location/:id?", function(req,res){
+
     let query = req.params.id ?
       {where: { id : req.params.id } } :
       {};
@@ -11,7 +13,8 @@ module.exports = function(app) {
     db.Location.findAll(query)
       .then((dbLocation) => { res.json(dbLocation) })
       .catch((err) => {res.json(err)})
-})
+
+  })
 
 //update location with given id
 app.post("/api/location/update/:id", function(req,res){
@@ -21,6 +24,7 @@ app.post("/api/location/update/:id", function(req,res){
       .catch((err) => {res.json(err)})
 
 });
+
 
 app.post("/api/location/like/:id", function(req, res) {
   db.Location.findOne(  {where: { id: req.params.id } } )

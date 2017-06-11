@@ -84,8 +84,15 @@ require('./routes/user-routes.js')(app);
 //Setting Port number as env variable OR 3000
 app.set('port', process.env.PORT || 3000);
 
+
+const locationSeeds = require('./db/seed-locations.js');
+
+
 db.sequelize.sync({ force: process.env.FORCESYNC || true})
     .then(function() {
+      db.Location.bulkCreate(locationSeeds).then((res) => {
+        console.log(res ? "Location Seeds loaded" : "ERROR:  Something went wrong in the seed-locations.js file")
+      })
       app.listen(app.get('port'), function() {
         console.log("App listening on PORT " + app.get('port'));
       });
