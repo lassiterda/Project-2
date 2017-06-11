@@ -13,8 +13,8 @@ module.exports = function(app) {
     { order: [["numlikes", "DESC"]] };
 
     db.Location.findAll(query)
-      .then(dbLocation => { res.json( new respObj(dbLocation, "Success, dee data for location info") ) })
-      .catch(err => {res.json(new respObj(null, "Something went wrong, see error message for details.", err) ) })
+      .then(dbLocation => { res.json( new ResponeObj(dbLocation, "Success, dee data for location info") ) })
+      .catch(err => {res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err) ) })
   })
 
 
