@@ -9,7 +9,7 @@ const checkAuthenticated = function(req, res, next){
 
 module.exports = function(app) {
 	app.get("/",(req, res) => {
-		res.render('index')
+		res.render('landing')
 	})
 
 	app.get("/register", (req, res) => {
@@ -20,11 +20,11 @@ module.exports = function(app) {
 		res.render('login')
 	})
 
-	app.get("/home",checkAuthenticated, (req, res) => {
+	app.get("/home", (req, res) => {
 		res.render('home')
 	})
 
-	app.get("/profile",checkAuthenticated, (req, res) => {
+	app.get("/profile", (req, res) => {
 		res.render('profile')
 	})
 }
