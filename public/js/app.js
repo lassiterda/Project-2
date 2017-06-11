@@ -84,7 +84,7 @@ function drop() {
     map.setZoom(8);
     map.setCenter(marker.getPosition());
   });
-  
+
 function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 16,
@@ -125,4 +125,4 @@ function initMap() {
           });
         });
       }
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk&callback=initMap"async defer></script>
+// <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk&callback=initMap"async defer></script>

@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "riley272",
+    "password": "lassiterda",
     "database": "walkabout_CLT_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

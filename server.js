@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 
 //Setup Express App and define PORT number
 const app = express();
-const apiRouter = require("./routes/api-routes");
+
 // ---START MIDDLEWARE---
 
   //mounting handlebars as app view engine
@@ -26,7 +26,7 @@ const apiRouter = require("./routes/api-routes");
   app.use(cookieParser());
 
   //mounting static assets middleware
-  app.use(express.static(__dirname + "/public"));
+  app.use(express.static(path.join(__dirname, 'public')));
 
   //Mounting express-session
   app.use(session({
@@ -56,7 +56,7 @@ const apiRouter = require("./routes/api-routes");
       .catch((err) => { done(err, null)})
   });
 
-  // Flash messages Init
+  // Flash messages Init, we may want to take this out if we dont want to use
   app.use(flash());
 
   // //flash messge variables
@@ -75,18 +75,18 @@ var db = require("./db/models");
 require("./db/associations")(db);
 
 //load app routes
+require('./routes/api-routes.js')(app);
 require('./routes/html-routes.js')(app);
-//require('./routes/api-routes.js')(app);
-//use this router for all api routes...dont need to write api every time
-app.use("/api", apiRouter);
 require('./routes/user-routes.js')(app);
+
+
 
 //Setting Port number as env variable OR 3000
 app.set('port', process.env.PORT || 3000);
 
 db.sequelize.sync({ force: process.env.FORCESYNC || true})
-  .then(function() {
-    app.listen(app.get('port'), function() {
-      console.log("App listening on PORT " + app.get('port'));
+    .then(function() {
+      app.listen(app.get('port'), function() {
+        console.log("App listening on PORT " + app.get('port'));
+      });
     });
-  });
