@@ -19,10 +19,20 @@ module.exports = function(app) {
 //update location with given id
 app.post("/api/location/update/:id", function(req,res){
 
-    db.Location.update(req.body,{ where: { id: req.params.id}})
-      .then((dbLocation) => {res.send(dbLocation)})
-      .catch((err) => {res.json(err)})
+    let body = req.body;
 
+    rp.get({
+      uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(body.address + " " + body.city + ", " + body.state),
+    })
+      .then( resp => {
+        resp = JSON.parse(resp)
+        req.body.lat = resp.results[0].geometry.location.lat;
+        req.body.lng = resp.results[0].geometry.location.lng;
+
+        db.Location.update(req.body, { where: { id: req.params.id } })
+          .then(dbLocationId => { res.json(dbLocationId) })
+          .catch(err => { res.json(err) })
+      })
 });
 
 
@@ -37,7 +47,7 @@ app.post("/api/location/like/:id", function(req, res) {
 
 //creates new location
 app.post("/api/location/create", function(req, res){
-  var body = req.body;
+  let body = req.body;
   console.log(encodeURIComponent(body.address + " " + body.city + ", " + body.state));
   rp.get({
     uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(body.address + " " + body.city + ", " + body.state),
@@ -46,7 +56,6 @@ app.post("/api/location/create", function(req, res){
        resp = JSON.parse(resp)
       req.body.lat = resp.results[0].geometry.location.lat;
       req.body.lng = resp.results[0].geometry.location.lng;
-      console.log(body);
       db.Location.create(body)
         .then(dbLocation => { res.json(dbLocation) })
         .catch(err => { res.json(err) })
