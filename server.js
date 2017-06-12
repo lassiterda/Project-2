@@ -96,7 +96,7 @@ db.sequelize.sync({ force: process.env.FORCESYNC || true})
       db.Location.bulkCreate(locationSeeds).then((res) => {
         console.log(res ? "Location Seeds loaded" : "ERROR:  Something went wrong in the seed-locations.js file")
 
-        db.Trip.blukCreate(tripSeeds.constructor === Array ? tripSeeds : [ tripSeeds ])
+        db.Trip.create(tripSeeds)
         .then(dbTrip => {
           let tripLocArr = tripSeeds.locations.map((ele, idx) => {
              return { sequenceNumber: idx + 1, LocationId:  ele, TripId: dbTrip.dataValues.id}
