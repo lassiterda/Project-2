@@ -1,27 +1,41 @@
-
+var rp = require('request-promise');
 const db = require('./../db/models');
-//module.exports = (app) => {
-
-//}
-
-const router = require("express").Router();
-//just one trip
-    router.get("/:id", function(req,res){
-        res.send(req.params.id);
-    })
-
-    router.get("/", function(req,res){
-        res.send("hi")
-    });
 
 
+module.exports = (app) => {
 
-    router.post("/:id", function(req,res){
-        res.send(req.params.id)
-    });
+  //get one or all trips
+  app.get("api/trips/:id?", function(req,res){
 
-    router.post("/", function(req,res){
-        res.send("hi")
-    });
+    let query = req.params.id ?
+      {where: { id : req.params.id } } :
+      {};
 
-module.exports = router
+      db.Trip.findAll(query)
+        .then((dbLocation) => { res.json(dbLocation) })
+        .catch((err) => {res.json(err)})
+
+  })
+
+  //update a single trip
+  app.post("api/trip/:id", function(req,res){
+
+    db.Trip.update(req.body)
+      .then((dbLocation) => { res.json(dbLocation) })
+      .catch((err) => {res.json(err)})
+
+  });
+
+  app.post("/api/trip/create", function(req,res){
+
+  });
+
+  app.post("/api/trip/delete/:id", function(req, res){
+
+    db.Trip.destroy( { where: { id: req.params.id } })
+      .then(() => {
+
+      })
+  });
+
+}
