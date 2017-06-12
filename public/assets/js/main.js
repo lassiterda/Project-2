@@ -1,12 +1,20 @@
 $(document).ready(function(){
 
-	// Program
+	// =============== Program Logic ===============
 
-	
-
-
+	clickHandlers.areThereTrips();
 
 
+
+
+
+
+
+
+
+	// =============== End of Program Logic ===============
+
+	// *****************************************************
 
 	// =============== FUNCTIONS ===============
 
@@ -27,9 +35,28 @@ $(document).ready(function(){
 
 		});
 
-
 	}//end of initHome
 
 	
+	//returns nothing. used to disable or disable My Trips button
+	function areThereTrips() {
+
+		$.get("/api/trips", function (data) {
+
+			console.log(response.data);
+
+		}).done(function(data) {
+			
+			//if at least one trip, set disabled to false
+			//else, set disabled to true , or do nothing since default is disabled
+			if(true){
+				$("#my-trips-btn").prop("disabled", false);
+			}
+			
+		})
+
+	}//end of areThereTrips
+
+	// =============== END OF FUNCTIONS ===============
 
 })//end of document.ready
