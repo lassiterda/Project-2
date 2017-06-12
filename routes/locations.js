@@ -24,7 +24,7 @@ module.exports = function(app) {
     db.Location.findOne({ where: { id: req.params.id } })
       .then((dbLocation) => {
         return rp.get({
-          uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(dbLocation.address + " " + dbLocation.city + ", " + dbLocation.state)
+          uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent( body.address || dbLocation.address + " " + body.location || dbLocation.city  + ", " + body.state || dbLocation.state)
         })
       })
       .then( resp => {
