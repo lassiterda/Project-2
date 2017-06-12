@@ -12,6 +12,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.TEXT,
             allowNull: false,
         },
+        category: {
+          type: DataTypes.TEXT,
+          allowNull: false,
+        },  
         address: {
             type: DataTypes.STRING,
             allowNull: false
@@ -35,17 +39,20 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: 0
         },
         lat: {
-            type: DataTypes.FLOAT,  //INTEGER
+            type: DataTypes.DOUBLE,  //INTEGER
             allowNull: true,
             defaultValue: null,
             validate: { min: -90, max: 90 }
           },
           lng: {
-            type: DataTypes.FLOAT,  //INTEGER
+            type: DataTypes.DOUBLE,  //INTEGER
             allowNull: true,
             defaultValue: null,
             validate: { min: -180, max: 180 }
           },
+          Google_place_id: {
+            type: DataTypes.STRING,
+          }
         }, {
           validate: {
             bothCoordsOrNone() {
