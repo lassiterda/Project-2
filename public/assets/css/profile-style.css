@@ -1,0 +1,8 @@
+#profile-pic {
+	width: 160px;
+	display: block;
+	margin: auto;
+	border: solid black 1px;
+	padding: 5px;
+	box-shadow: 0 2px 10px #777;
+}

@@ -92,13 +92,13 @@ footer {
 
 #map-location {
   height: 70%;
-  width: 100%;
+  width: 60%;
   margin-bottom: 20px;
 }
 
 #side-bar {
   height: 70%;
-  width: 100%;
+  width: 40%;
   margin-bottom: 20px;
   /*border: solid 1px black;*/
   background-color: lightgrey;
@@ -108,10 +108,24 @@ footer {
 
 .location-box {
   /*width: 100% !important;*/
-  height: 50px;
+  height: 85px;
   border: solid 1px black;
   padding: 10px;
   text-align: center;
+  font-size: 13px;
+}
+
+.trip-box {
+  /*width: 100% !important;*/
+  height: 85px;
+  border: solid 1px black;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.trip-selector {
+  float: right;
 }
 
 /* For Desktop */
