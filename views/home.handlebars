@@ -1,15 +1,32 @@
 <div class = "container-fluid">
     {{!--Map Location--}}
     <div class="row">
-        <div id="map-location" class="col-sm-12"></div>
+     {{!--    This side bar div will by populated dynamically.
+        Right now we've added 10 static "locations" simply
+        for the sake of testing --}}
+        <div id="side-bar" class="col-sm-3">
+            <div class="location-box">Location 1</div>
+            <div class="location-box">Location 2</div>
+            <div class="location-box">Location 3</div>
+            <div class="location-box">Location 4</div>
+            <div class="location-box">Location 5</div>
+            <div class="location-box">Location 6</div>
+            <div class="location-box">Location 7</div>
+            <div class="location-box">Location 8</div>
+            <div class="location-box">Location 9</div>
+            <div class="location-box">Location 10</div>
+        </div>
+        <div id="map-location" class="col-sm-9"></div>
     </div>
     <div class="row">
-        <div class="col-sm-10 offset-sm-2">
+        <div class="col-sm-9 offset-sm-3">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary">Add Location</button>
-                <button type="button" class="btn btn-primary">Build/Save</button>
-                <button type="button" class="btn btn-info">My Trips</button>
-                <button type="button" class="btn btn-success"><img src="assets/icons/arrows/chevrons-up.svg" alt="up-chev"></button>
+                <button type="button" class="btn btn-info">Build Trip</button>
+                <button type="button" class="btn btn-primary" id="my-trips-btn" disabled>My Trips</button>
+            </div>
+            <div class="col-sm-7 offset-sm-3    ">
+                <button type="button" class="btn btn-success" id="chevron-icon"><img src="assets/icons/arrows/chevrons-up.svg" alt="up-chev"></button>
             </div>
         </div>
     </div>

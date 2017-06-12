@@ -93,4 +93,52 @@ footer {
 #map-location {
   height: 70%;
   width: 100%;
+  margin-bottom: 20px;
+}
+
+#side-bar {
+  height: 70%;
+  width: 100%;
+  margin-bottom: 20px;
+  /*border: solid 1px black;*/
+  background-color: lightgrey;
+  overflow: scroll;
+  padding: 0px;
+}
+
+.location-box {
+  /*width: 100% !important;*/
+  height: 50px;
+  border: solid 1px black;
+  padding: 10px;
+  text-align: center;
+}
+
+/* For Desktop */
+@media screen and (min-width: 992px) {
+  #chevron-icon{
+    display: none;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  body {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #chevron-icon{
+    display: none;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  body {
+    width: 100%;
+  }
+
+  .container {
+    width: 100%;
+  }
 }
