@@ -21,23 +21,23 @@ module.exports = function(app) {
   //update location with given id
   app.post("/api/location/update/:id", function(req,res) {
     let body = req.body;
-
-    //retreive lat, lng, and Google_place_id fro Google Geocaching API.
-    rp.get({
-      uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(body.address + " " + body.city + ", " + body.state),
-    })
+    db.Location.findOne({ where: { id: req.params.id } })
+      .then((dbLocation) => {
+        return rp.get({
+          uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(dbLocation.address + " " + dbLocation.city + ", " + dbLocation.state)
+        })
+      })
       .then( resp => {
 
         //parse the response
         let respObj = JSON.parse(resp)
-
-        //adding lat lng, and Google_place_id to the request object to pass into db.
+        //adding lat, lng to the request object to pass into db.
         req.body.lat = respObj.results[0].geometry.location.lat;
         req.body.lng = respObj.results[0].geometry.location.lng;
-        body.Google_place_id = respObj.results[0].geometry.location.lng;
+        req.body.Google_place_id = respObj.results[0].place_id;
 
         db.Location.update(req.body, { where: { id: req.params.id } })
-          .then(dbLocationId => { return db.Location.findOne({ where: { id: dbLocationId[0] } }) })
+          .then(dbLocationId => { return db.Location.findOne({ where: { id: req.params.id } }) })
           .then(dbLocation => { res.json(new ResponeObj(dbLocation.dataValues, "Success, Location update complete.")) })
           .catch(err => { res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err)) })
 
@@ -59,7 +59,7 @@ module.exports = function(app) {
   //creates new location
   app.post("/api/location/create", function(req, res){
     let body = req.body;
-
+    console.log(body.address + " " + body.city + ", " + body.state);
     //retreive lat, lng, and Google_place_id fro Google Geocaching API.
     rp.get({
       uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(body.address + " " + body.city + ", " + body.state),
@@ -68,10 +68,9 @@ module.exports = function(app) {
         //parse the response
         let respObj = JSON.parse(resp)
 
-        //adding lat lng, and Google_place_id to the request object to pass into db.
+        //adding lat, lng to the request object to pass into db.
         req.body.lat = respObj.results[0].geometry.location.lat;
         req.body.lng = respObj.results[0].geometry.location.lng;
-        body.Google_place_id = respObj.results[0].geometry.location.lng;
 
         db.Location.create(body)
           .then(dbLocation => { res.json(new ResponeObj(dbLocation.dataValues, "Success, Location created.")) })
