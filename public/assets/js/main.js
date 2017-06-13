@@ -30,6 +30,18 @@ $(document).ready(function(){
 
 	});//end of click-event
 
+	$('.location-box').on('click', function() {
+
+		$('this').removeClass('location-box');
+		$('this').addClass('location-box-active');
+	});//end of click-event
+
+	$('#add-location-btn').on('click', function() {
+		console.log("test")
+		event.preventDefault();
+		addLocation();
+	});//end of click-event
+
 
 	// =============== End of Program Logic ===============
 
@@ -49,7 +61,7 @@ $(document).ready(function(){
 		.done(function(data) {
 
 			console.log(data);
-			//initMap(data);
+			initMap(data);
 			//here we have our locations data from the API
 			//now we have to render map, render pins, and render side bar
 			//|-> initHome()
@@ -62,6 +74,22 @@ $(document).ready(function(){
 		});
 
 	}//end of initHome
+
+	function initMap(data) {
+
+		//coordinates and settings for Charlotte Map
+		const Charlotte = {
+			center: {lat: 35.22, lng: -80.84},
+			scrollwheel: false,
+			zoom: 13
+		}
+
+		//map declared globally
+		map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
+
+		renderPins(map, data);
+
+	}//end of initMap
 
 	
 	//returns nothing. used to disable or disable My Trips button
@@ -151,10 +179,8 @@ $(document).ready(function(){
 		for (i = 0; i <= locations.data.length; i++){
 
 			var $newLocation = $("<div />");
-			var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
-
+			
 			$newLocation.addClass('location-box');
-			$checkbox.addClass('trip-selector');
 			$newLocation.attr('location-id', locations.data[i].id);
 
 			$newLocation.append(locations.data[i].name + "\n");
@@ -162,11 +188,50 @@ $(document).ready(function(){
 
 			//have yet to append the description... need to style location-box
 			//appropriately to fit everything in nicely
-			$newLocation.append($checkbox);	
 
 			//append the div we just constructed and popuated to the side bar
 			$("#side-bar").append($newLocation);
 		}
+
+	}
+
+	function renderPins(map, locations) {
+
+		for(i = 0; i < locations.data.length; i++) {
+			var position = new google.maps.LatLng(locations.data[i].lat, locations.data[i].lng);
+	                
+	                marker = new google.maps.Marker({
+	                	position: position,
+	                	map: map,
+	                	animation: google.maps.Animation.DROP,
+	                	title: locations.data[i].name
+	                });
+        }
+
+	}
+
+	function addLocation() {
+
+		console.log('inside addLocation function');
+		$('#add-location-modal').modal('toggle');
+
+		$('#submit-location').on('click', function() {
+
+			var newLocation = {
+				name: $('#location-name-input').val().trim(),
+				address: $('#address-input').val().trim(),
+				city: $('#city-input').val().trim(),
+				state: $('#state-input').val().trim(),
+				zip: $('#zip-input').val().trim()
+			}
+
+			$.post('/api/location/create', newLocation)
+			.done(function(response) {
+				console.log("Location successfully added!")
+				console.log(response);
+				alertify.success("Location successfully added!");
+			});
+		});
 
 	}
 
