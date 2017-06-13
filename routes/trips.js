@@ -19,16 +19,6 @@ module.exports = function(app) {
   })
 
 
-  //update a single trip
-  // app.post("api/trip/:id", function(req,res){
-  //
-  //   //
-  //   db.Trip.update(req.body)
-  //     .then((dbLocation) => { res.json(dbLocation) })
-  //     .catch((err) => {res.json(err)})
-  //
-  // });
-
   app.post("/api/trip/create", function(req,res) {
 
     //create the trip based ont the req.body
