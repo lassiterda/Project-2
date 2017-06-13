@@ -31,6 +31,7 @@ module.exports = function(app) {
 
         //parse the response
         let respObj = JSON.parse(resp)
+        
         //adding lat, lng to the request object to pass into db.
         req.body.lat = respObj.results[0].geometry.location.lat;
         req.body.lng = respObj.results[0].geometry.location.lng;

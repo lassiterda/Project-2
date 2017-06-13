@@ -86,14 +86,46 @@ app.set('port', process.env.PORT || 3000);
 
 
 const locationSeeds = require('./db/seed-locations.js');
+const tripSeeds = require('./db/seed-trips.js');
+
 
 
 db.sequelize.sync({ force: process.env.FORCESYNC || true})
     .then(function() {
+      console.log(db.Sequelize.models)
       db.Location.bulkCreate(locationSeeds).then((res) => {
         console.log(res ? "Location Seeds loaded" : "ERROR:  Something went wrong in the seed-locations.js file")
-      })
+
+        db.Trip.create(tripSeeds)
+        .then(dbTrip => {
+          let tripLocArr = tripSeeds.locations.map((ele, idx) => {
+             return { sequenceNumber: idx + 1, LocationId:  ele, TripId: dbTrip.dataValues.id}
+          });
+          db.TripLocation.bulkCreate(tripLocArr)
+          .then((dbTripLocations) => {
+
+            return db.Trip.findOne({
+              where: { id: dbTrip.id },
+              include: [
+                {
+                  model: db.Location,
+                  through: {}
+              }]
+            })
+
+          })
+          .then((res) => {
+            console.log(res.dataValues.Locations.map(ele => {
+              delete ele.dataValues.TripLocation;
+              delete ele.dataValues.createdAt;
+              delete ele.dataValues.updatedAt;
+              return ele.dataValues
+            }));
+          })
+
+        })
       app.listen(app.get('port'), function() {
         console.log("App listening on PORT " + app.get('port'));
       });
     });
+  });
