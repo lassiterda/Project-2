@@ -7,7 +7,7 @@ module.exports = function(app) {
 
   //get one location or all locations (sorted by numlikes)
   app.get("/api/location/:id?", function(req,res){
-
+    console.log(req.user);
     let query = req.params.id ?
     { where: { id : req.params.id } } :
     { order: [["numlikes", "DESC"]] };
@@ -31,7 +31,7 @@ module.exports = function(app) {
 
         //parse the response
         let respObj = JSON.parse(resp)
-        
+
         //adding lat, lng to the request object to pass into db.
         req.body.lat = respObj.results[0].geometry.location.lat;
         req.body.lng = respObj.results[0].geometry.location.lng;
