@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-sm-9 offset-sm-3">
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary">Add Location</button>
+                <button type="button" class="btn btn-primary" id="add-location-btn" data-toggle="modal" data-target="add-location-modal">Add Location</button>
                 <button type="button" class="btn btn-info">Build Trip</button>
                 <button type="button" class="btn btn-primary" id="my-trips-btn" disabled>My Trips</button>
             </div>
@@ -30,4 +30,56 @@
         </div>
     </div>
 </div>
+
+{{!-- code for modal --}}
+<div class="modal modal-fade" id="add-location-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Location</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" value="Latta Arcade" id="location-name-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-search-input" class="col-2 col-form-label">Address</label>
+                    <div class="col-10">
+                        <input class="form-control" type="search" value="130 N Tryon" id="address-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-email-input" class="col-2 col-form-label">City</label>
+                    <div class="col-10">
+                        <input class="form-control" type="email" value="Charlotte" id="city-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-url-input" class="col-2 col-form-label">State</label>
+                    <div class="col-10">
+                        <input class="form-control" type="url" value="NC" id="state-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="example-tel-input" class="col-2 col-form-label">Zip</label>
+                    <div class="col-10">
+                        <input class="form-control" type="tel" value="28202" id="zip-input">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-location">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div> {{!-- end of modal --}}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script> 
+<script type="text/javascript" src="/assets/js/main.js"></script>
 

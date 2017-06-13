@@ -1,31 +1,33 @@
 <h2 class="page-header">Register</h2>
-<form method="post" action="/users/register">
+<form method="post" action="/register">
 
 	<div class="form-group">
 		<label for="inputFirstName">First Name</label>
-		<input type="text" class="form-control" placeholder="First Name" name="first-name">
+		<input type="text" class="form-control" placeholder="First Name" name="first-name" id="first-name">
 	</div>
 	<div class="form-group">
 		<label for="inputLastName">Last Name</label>
-		<input type="text" class="form-control" placeholder="Last Name" name="last-name">
+		<input type="text" class="form-control" placeholder="Last Name" name="last-name" id="last-name">
 	</div>
 	<div class="form-group">
 		<label for="inputUsername">Username</label>
-		<input type="text" class="form-control" placeholder="Username" name="username">
+		<input type="text" class="form-control" placeholder="Username" name="username" id="username">
 	</div>
 	<div class="form-group">
 		<label for="inputPassword">Password</label>
-		<input type="password" class="form-control" placeholder="Password" name="password">
+		<input type="password" class="form-control" placeholder="Password" name="password" id="password">
 	</div>
 	<div class="form-group">
 		<label for="inputZip">Zip Code</label>
-		<input type="text" class="form-control" placeholder="Zip Code" name="zip">
+		<input type="text" class="form-control" placeholder="Zip Code" name="zip" id="zip">
 	</div>
 	<div class="form-group">
 		<label for="inputEmail">Email</label>
-		<input type="email" class="form-control" placeholder="Email (e.g. johndoe@email.com)" name="email">
+		<input type="email" class="form-control" placeholder="Email (e.g. johndoe@email.com)" name="email" id="email">
 		<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 	</div>
-	<button type="submit" class="btn btn-default">Submit</button>
+	<button type="submit" class="btn btn-default" id="submit">Submit</button>
 
 </form>
+
+<script type="text/javascript" src="/assets/js/register.js"></script>

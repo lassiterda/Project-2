@@ -62,10 +62,10 @@ module.exports = function(app) {
     })
   );
 
-  app.post("user/logout", (req, res) => {
+  app.get("/user/logout", (req, res) => {
     req.logout();
     req.flash("success_msg", "You have been logged out.")
-    res.redirect("/login")
+    res.render("landing")
   })
 
 }

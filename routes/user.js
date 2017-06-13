@@ -11,8 +11,8 @@ module.exports = function(app) {
         res.json("hi");
     });
 
-    app.post("/api/user/", function(req,res){
-        res.json("hi");
+    app.post("/api/user/profile", function(req,res){
+        res.render('profile');
 
     });
 
