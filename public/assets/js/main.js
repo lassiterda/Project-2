@@ -29,6 +29,7 @@ $(document).ready(function(){
 		}
 
 	});//end of click-event
+<<<<<<< HEAD
 
 	$('.location-box').on('click', function() {
 
@@ -41,6 +42,8 @@ $(document).ready(function(){
 		event.preventDefault();
 		addLocation();
 	});//end of click-event
+=======
+>>>>>>> master
 
 
 	// =============== End of Program Logic ===============
@@ -61,7 +64,11 @@ $(document).ready(function(){
 		.done(function(data) {
 
 			console.log(data);
+<<<<<<< HEAD
 			initMap(data);
+=======
+			//initMap(data);
+>>>>>>> master
 			//here we have our locations data from the API
 			//now we have to render map, render pins, and render side bar
 			//|-> initHome()
@@ -179,8 +186,15 @@ $(document).ready(function(){
 		for (i = 0; i <= locations.data.length; i++){
 
 			var $newLocation = $("<div />");
+<<<<<<< HEAD
 			
 			$newLocation.addClass('location-box');
+=======
+			var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
+
+			$newLocation.addClass('location-box');
+			$checkbox.addClass('trip-selector');
+>>>>>>> master
 			$newLocation.attr('location-id', locations.data[i].id);
 
 			$newLocation.append(locations.data[i].name + "\n");
@@ -188,6 +202,10 @@ $(document).ready(function(){
 
 			//have yet to append the description... need to style location-box
 			//appropriately to fit everything in nicely
+<<<<<<< HEAD
+=======
+			$newLocation.append($checkbox);	
+>>>>>>> master
 
 			//append the div we just constructed and popuated to the side bar
 			$("#side-bar").append($newLocation);
@@ -195,6 +213,7 @@ $(document).ready(function(){
 
 	}
 
+<<<<<<< HEAD
 	function renderPins(map, locations) {
 
 		for(i = 0; i < locations.data.length; i++) {
@@ -235,6 +254,8 @@ $(document).ready(function(){
 
 	}
 
+=======
+>>>>>>> master
 	// =============== END OF FUNCTIONS ===============
 
 })//end of document.ready
