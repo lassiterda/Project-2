@@ -34,7 +34,7 @@ module.exports = function(app) {
     bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
       db.User.create({
-        userName:   req.body.username,
+        userName:   req.body.userName,
         password:   hash,
            email:   req.body.email,
         userType:   req.body.userType
