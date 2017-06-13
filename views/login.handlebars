@@ -1,14 +1,16 @@
 <h2 class="page-header">Account Login</h2>
-<form method="post" action="/users/login">
+<form method="post" action="/user/login">
 	
 	<div class="form-group">
 		<label for="inputUsername">Username</label>
-		<input type="text" class="form-control" placeholder="Username" name="username">
+		<input type="text" class="form-control" placeholder="Username" name="username" id="userName">
 	</div>
 	<div class="form-group">
 		<label for="inputPassword">Password</label>
-		<input type="password" class="form-control" placeholder="Password" name="password">
+		<input type="password" class="form-control" placeholder="Password" name="password" id="password">
 	</div>
-	<button type="submit" class="btn btn-default">Submit</button>
+	<button type="submit" class="btn btn-default" id="login">Login</button>
 
 </form>
+
+<script type="text/javascript" src="/assets/js/login.js"></script>

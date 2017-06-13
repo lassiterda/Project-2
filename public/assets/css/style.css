@@ -115,6 +115,18 @@ footer {
   font-size: 13px;
 }
 
+<<<<<<< HEAD
+.location-box:active {
+  height: 85px;
+  border: solid 1px black;
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background-color: blue;
+}
+
+=======
+>>>>>>> master
 .trip-box {
   /*width: 100% !important;*/
   height: 85px;
