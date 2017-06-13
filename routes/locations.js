@@ -7,7 +7,8 @@ module.exports = function(app) {
 
   //get one location or all locations (sorted by numlikes)
   app.get("/api/location/:id?", function(req,res){
-    console.log(req.user);
+    
+    //build query depending on whether an id is provided
     let query = req.params.id ?
     { where: { id : req.params.id } } :
     { order: [["numlikes", "DESC"]] };
