@@ -64,7 +64,7 @@ const app = express();
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
-
+    res.locals.user = req.user || null;
     next();
   });
 
@@ -114,14 +114,7 @@ db.sequelize.sync({ force: process.env.FORCESYNC || true})
             })
 
           })
-          .then((res) => {
-            console.log(res.dataValues.Locations.map(ele => {
-              delete ele.dataValues.TripLocation;
-              delete ele.dataValues.createdAt;
-              delete ele.dataValues.updatedAt;
-              return ele.dataValues
-            }));
-          })
+          .then((res) => {"Trip Seeder Loaded."})
 
         })
       app.listen(app.get('port'), function() {

@@ -1,14 +1,14 @@
 <div class = "container-fluid">
     {{!--Map Location--}}
-    <div class="row">
-        <div id="side-bar" class="col-sm-3">
+    <div class="row map-wrapper">
+        <div id="side-bar" class="col-sm-3 stack">
             {{!-- This side bar div will be populated dynamically. --}}
         </div>
-        <div id="map-location" class="col-sm-9"></div>
+        <div id="map-location" class="col-sm-9 stack"></div>
     </div>
     <div class="row">
         <div class="col-sm-9 offset-sm-3">
-            <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group map-buttons"  role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" id="add-location-btn" data-toggle="modal" data-target="add-location-modal">Add Location</button>
                 <button type="button" class="btn btn-info">Build Trip</button>
                 <button type="button" class="btn btn-primary" id="my-trips-btn" disabled>My Trips</button>
