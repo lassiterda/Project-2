@@ -16,7 +16,7 @@ module.exports = function(app) {
         .then(dbUser => {
           delete dbUser[0].dataValues.password;
           delete dbUser[0].dataValues.userType;
-          
+
             //sorting each trip's locations by TripLocation.sequenceNumber
             dbUser[0].Trips
               .map((trip) => { return trip.Locations
@@ -30,14 +30,17 @@ module.exports = function(app) {
 
     });
 
-    app.post("/api/user/update/:id", function(req, res){
+    app.post("/api/user/update/:id?", function(req, res){
 
-
-
+      db.User.update(req.body, { where: { id: req.params.id || req.user.id } })
+        .then((dbUserId) => { res.json(new ResponeObj(dbUser, "Success, User Updated.")) })
+        .catch(err => {res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err) ) })
     });
 
-    app.delete("/api/user/delete/:id", function(req,res){
-        res.json(req.params.id);
+    app.post("/api/user/delete/:id", function(req,res){
+      db.User.update(req.body, { where: { id: req.params.id } })
+        .then((dbUserId) => { res.json(new ResponeObj(dbUserId, "Success, User Deleted.")) })
+        .catch(err => {res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err) ) })
     });
 
 
