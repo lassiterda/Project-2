@@ -5,6 +5,6 @@ module.exports = function(db) {
   db.Trip.belongsToMany(db.Location, { through: db.TripLocation })
 
   //associates the Users and their Trips via the 'UserTrip' Table, (currently no model).
-  db.User.belongsToMany(db.Trip, { through: "UserTrip" })
-  db.Trip.belongsToMany(db.User, { through: "UserTrip" })
+  db.User.belongsToMany(db.Trip, { through:  db.UserTrip })
+  db.Trip.belongsToMany(db.User, { through: db.UserTrip })
 }
