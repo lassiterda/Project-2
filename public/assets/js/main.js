@@ -3,6 +3,11 @@ $(document).ready(function(){
 
 	// =============== Program Logic ===============
 
+	//we're declaring a global array to hold locations data
+	//so that we may access it from anywhere in the program 
+	//without running into scoping issues
+	var locationsGlobal = [];
+
 	//initializes home page
 	initHome();
 
@@ -30,7 +35,6 @@ $(document).ready(function(){
 
 	});//end of click-event
 
-
 	$('.location-box').on('click', function() {
 
 		$('this').removeClass('location-box');
@@ -39,9 +43,24 @@ $(document).ready(function(){
 
 	$('#add-location-btn').on('click', function() {
 		
+		//prevents the element's default behavior from triggering
 		event.preventDefault();
 		addLocation();
 	});//end of click-event
+
+	$('#build-trip-btn').on('click', function() {
+
+		//prevents the element's default behavior from triggering
+		event.preventDefault();
+
+		snatchSelectedLocations();
+
+
+
+
+	});//end of click-event
+
+
 
 
 
@@ -90,7 +109,7 @@ $(document).ready(function(){
 			zoom: 13
 		}
 
-		//map declared globally
+		//map
 		map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
 
 		renderPins(map, data);
@@ -184,29 +203,43 @@ $(document).ready(function(){
 
 		for (i = 0; i <= locations.data.length; i++){
 
-			var $newLocation = $("<div />");
-			$newLocation.addClass('location-box');
+			var $newLocation = {};
 
-			// var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
+			//setting properties to the object
+			$newLocation.box = $("<div />");
+			$newLocation.isSelected = true;
+			$newLocation.about = {
+				lat: locations.data[i].lat,
+				lng: locations.data[i].lng,
+				id: locations.data[i].id,
+				Google_place_id: locations.data[i].Google_place_id,
+				name: locations.data[i].name,
+				address: {
+					street: locations.data[i].address,
+					city: locations.data[i].city,
+					state: locations.data[i].state,
+					zip: locations.data[i].zip
+				},
+				description: locations.data[i].description,
+			};
 
-			$newLocation.addClass('location-box');
-			// $checkbox.addClass('trip-selector');
 
-			$newLocation.attr('location-id', locations.data[i].id);
+			$newLocation.box.addClass('location-box');
+			$newLocation.box.attr('location-id', locations.data[i].id);
 
-			$newLocation.append(locations.data[i].name + "\n");
-			$newLocation.append("Address: " + locations.data[i].address);
-
-			//have yet to append the description... need to style location-box
-			//appropriately to fit everything in nicely
+			$newLocation.box.append(locations.data[i].name + "\n");
+			$newLocation.box.append("Address: " + locations.data[i].address);
 
 
-			// $newLocation.append($checkbox);	
-
+			//push individual div to global array
+			locationsGlobal.push($newLocation);
 
 			//append the div we just constructed and popuated to the side bar
-			$("#side-bar").append($newLocation);
-		}
+			$("#side-bar").append(locationsGlobal[i].box);
+
+		}//end of loop
+
+		console.log("Global Array: " + locationsGlobal);
 
 	}
 
@@ -238,25 +271,80 @@ $(document).ready(function(){
 			console.log('clicked');
 
 			var newLocation = {
+
 				name: $('#location-name-input').val().trim(),
 				address: $('#address-input').val().trim(),
 				city: $('#city-input').val().trim(),
 				state: $('#state-input').val().trim(),
 				zip: $('#zip-input').val().trim(),
 				description: $('#description-input').val().trim()
+
 			}
 
 			$.post('/api/location/create', newLocation)
 			.done(function(response) {
+
 				console.log("Location successfully added!");
 				console.log(response);
 				$('#add-location-modal').modal('hide');
 				initHome();
+
 			});
 			
 			// alertify.success("Location successfully added!");
 
 		})
+
+
+	}
+
+	function snatchSelectedLocations() {
+
+		let tripDirections = [];
+
+		for (var i = 0; i < locationsGlobal.length; i++) {
+
+			if(locationsGlobal[i].isSelected === true){
+
+				tripDirections.push(locationsGlobal[i]);
+
+			}
+
+		};//end of for loop
+
+		renderTrip(tripDirections);
+
+
+
+	}//end of snatchSelectedLocations
+
+	function renderTrip(selectedLocations) {
+
+		let tripLocations = [];
+
+		var list = document.getElementById('my-ui-list');
+		var $listItem = $('<li />');
+
+		selectedLocations.forEach(function(e){
+			$listItem.text(e.about.name);
+			tripLocations.push($listItem);
+		});
+
+		//coordinates and settings for Charlotte Map
+		const Charlotte = {
+			center: {lat: 35.22, lng: -80.84},
+			scrollwheel: false,
+			zoom: 13
+		}
+
+		//new map we'll use 
+		// map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
+		$('#build-trip-modal').modal('show');
+
+		tripLocations.forEach(function(e) {
+			$('#my-ui-list').append(e);
+		});
+
 
 
 	}
