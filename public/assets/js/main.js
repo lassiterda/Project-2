@@ -29,7 +29,7 @@ $(document).ready(function(){
 		}
 
 	});//end of click-event
-<<<<<<< HEAD
+
 
 	$('.location-box').on('click', function() {
 
@@ -38,12 +38,11 @@ $(document).ready(function(){
 	});//end of click-event
 
 	$('#add-location-btn').on('click', function() {
-		console.log("test")
+		
 		event.preventDefault();
 		addLocation();
 	});//end of click-event
-=======
->>>>>>> master
+
 
 
 	// =============== End of Program Logic ===============
@@ -64,11 +63,11 @@ $(document).ready(function(){
 		.done(function(data) {
 
 			console.log(data);
-<<<<<<< HEAD
+
 			initMap(data);
-=======
+
 			//initMap(data);
->>>>>>> master
+
 			//here we have our locations data from the API
 			//now we have to render map, render pins, and render side bar
 			//|-> initHome()
@@ -186,15 +185,13 @@ $(document).ready(function(){
 		for (i = 0; i <= locations.data.length; i++){
 
 			var $newLocation = $("<div />");
-<<<<<<< HEAD
-			
 			$newLocation.addClass('location-box');
-=======
-			var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
+
+			// var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
 
 			$newLocation.addClass('location-box');
-			$checkbox.addClass('trip-selector');
->>>>>>> master
+			// $checkbox.addClass('trip-selector');
+
 			$newLocation.attr('location-id', locations.data[i].id);
 
 			$newLocation.append(locations.data[i].name + "\n");
@@ -202,10 +199,10 @@ $(document).ready(function(){
 
 			//have yet to append the description... need to style location-box
 			//appropriately to fit everything in nicely
-<<<<<<< HEAD
-=======
-			$newLocation.append($checkbox);	
->>>>>>> master
+
+
+			// $newLocation.append($checkbox);	
+
 
 			//append the div we just constructed and popuated to the side bar
 			$("#side-bar").append($newLocation);
@@ -213,7 +210,7 @@ $(document).ready(function(){
 
 	}
 
-<<<<<<< HEAD
+
 	function renderPins(map, locations) {
 
 		for(i = 0; i < locations.data.length; i++) {
@@ -232,30 +229,38 @@ $(document).ready(function(){
 	function addLocation() {
 
 		console.log('inside addLocation function');
+
 		$('#add-location-modal').modal('toggle');
 
-		$('#submit-location').on('click', function() {
+		$(document).on('click', '#submit-location', function() {
+
+			event.preventDefault();
+			console.log('clicked');
 
 			var newLocation = {
 				name: $('#location-name-input').val().trim(),
 				address: $('#address-input').val().trim(),
 				city: $('#city-input').val().trim(),
 				state: $('#state-input').val().trim(),
-				zip: $('#zip-input').val().trim()
+				zip: $('#zip-input').val().trim(),
+				description: $('#description-input').val().trim()
 			}
 
 			$.post('/api/location/create', newLocation)
 			.done(function(response) {
-				console.log("Location successfully added!")
+				console.log("Location successfully added!");
 				console.log(response);
-				alertify.success("Location successfully added!");
+				$('#add-location-modal').modal('hide');
+				initHome();
 			});
-		});
+			
+			// alertify.success("Location successfully added!");
+
+		})
+
 
 	}
 
-=======
->>>>>>> master
 	// =============== END OF FUNCTIONS ===============
 
 })//end of document.ready
