@@ -38,7 +38,7 @@ $(document).ready(function(){
 	});//end of click-event
 
 	$('#add-location-btn').on('click', function() {
-		console.log("test")
+		
 		event.preventDefault();
 		addLocation();
 	});//end of click-event
@@ -185,14 +185,12 @@ $(document).ready(function(){
 		for (i = 0; i <= locations.data.length; i++){
 
 			var $newLocation = $("<div />");
-
-			
 			$newLocation.addClass('location-box');
 
-			var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
+			// var $checkbox = $('<br><input type="checkbox" name="checkbox" value="none">');
 
 			$newLocation.addClass('location-box');
-			$checkbox.addClass('trip-selector');
+			// $checkbox.addClass('trip-selector');
 
 			$newLocation.attr('location-id', locations.data[i].id);
 
@@ -203,7 +201,7 @@ $(document).ready(function(){
 			//appropriately to fit everything in nicely
 
 
-			$newLocation.append($checkbox);	
+			// $newLocation.append($checkbox);	
 
 
 			//append the div we just constructed and popuated to the side bar
@@ -231,25 +229,35 @@ $(document).ready(function(){
 	function addLocation() {
 
 		console.log('inside addLocation function');
+
 		$('#add-location-modal').modal('toggle');
 
-		$('#submit-location').on('click', function() {
+		$(document).on('click', '#submit-location', function() {
+
+			event.preventDefault();
+			console.log('clicked');
 
 			var newLocation = {
 				name: $('#location-name-input').val().trim(),
 				address: $('#address-input').val().trim(),
 				city: $('#city-input').val().trim(),
 				state: $('#state-input').val().trim(),
-				zip: $('#zip-input').val().trim()
+				zip: $('#zip-input').val().trim(),
+				description: $('#description-input').val().trim()
 			}
 
 			$.post('/api/location/create', newLocation)
 			.done(function(response) {
-				console.log("Location successfully added!")
+				console.log("Location successfully added!");
 				console.log(response);
-				alertify.success("Location successfully added!");
+				$('#add-location-modal').modal('hide');
+				initHome();
 			});
-		});
+			
+			// alertify.success("Location successfully added!");
+
+		})
+
 
 	}
 
