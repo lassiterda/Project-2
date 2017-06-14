@@ -212,3 +212,8 @@ footer {
     width: 100%;
   }
 }
+
+/*TO CHANGE MODAL BACKGROUND OPACITY*/
+.modal-backdrop {
+  opacity: 0.5 !important;
+}
