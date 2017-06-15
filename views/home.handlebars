@@ -1,8 +1,46 @@
 <div class = "container-fluid">
     {{!--Map Location--}}
     <div class="row map-wrapper">
-        <div id="side-bar" class="col-sm-3 stack">
+        <div id="accordion" role="tablist" aria-multiselectable="true" class="col-sm-3 stack my-side-bar">
             {{!-- This side bar div will be populated dynamically. --}}
+             <div class="card">
+              <div class="card-header" role="tab" id="headingOne">
+                  <h5 class="mb-0" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Old Settlers' Cemetary
+                  </h5>
+                </div>
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="card-block">
+                    <p>Cemetary with grave sights going back to the 1770s!</p>
+                  </div>
+                </div>
+              </div>
+
+              <div location-id="0" class="card">
+                <div class='card-header' role='tab' id='heading0'>
+                    <h5 class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="false" aria-controls="collapse0" class='mb-0'>Independence Square
+                    </h5>
+                </div>
+                <div id="collapse0" class="collapse show" role="tabpanel" aria-labelledby="heading0">
+                    <div class="card-block">
+                        <p>101 N Tryon St</p>
+                        <p>4 statues at Trade and Tryon, was a sight used for trading with native americans</p>
+                    </div>
+                </div>
+            </div>
+
+             <div location-id="1" class="card">
+                <div class='card-header' role='tab' id='heading1'>
+                    <h5 class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1" class='mb-0'>Independence Square
+                    </h5>
+                </div>
+                <div id="collapse1" class="collapse show" role="tabpanel" aria-labelledby="heading1">
+                    <div class="card-block">
+                        <p>101 N Tryon St</p>
+                        <p>4 statues at Trade and Tryon, was a sight used for trading with native americans</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="map-location" class="col-sm-9 stack"></div>
     </div>
@@ -113,7 +151,7 @@
     </div>
 </div>
 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script> 
 <script type="text/javascript" src="/assets/js/main.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script> 
+
 
