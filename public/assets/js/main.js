@@ -196,9 +196,11 @@ $(document).ready(function(){
 
 			$newTrip.accordion.header.append(trips.data[i].name);
 
+			//could this be a for each...? or jQuery .each()?
 			$newTrip.accordion.list.append('<li>'+ 'A' +'</li>');
 			$newTrip.accordion.list.append('<li>'+ 'B' +'</li>');
 			$newTrip.accordion.list.append('<li>'+ 'C' +'</li>');
+			$newTrip.accordion.list.append('<li>'+ 'Estimated Time' +'</li>');
 
 			$newTrip.accordion.body.append($newTrip.accordion.list);
 
@@ -206,8 +208,8 @@ $(document).ready(function(){
 			myTripsGlobal.push($newTrip);
 
 			//append the div we just constructed and popuated to the side bar
-			$(".my-side-bar").append($newTrip.accordion.header);
-			$(".my-side-bar").append($newTrip.accordion.body);
+			$(".my-side-bar").append(myTripsGlobal[i].accordion.header);
+			$(".my-side-bar").append(myTripsGlobal[i].accordion.body);
 
 		}
 		console.log(myTripsGlobal);
@@ -259,8 +261,8 @@ $(document).ready(function(){
 			locationsGlobal.push($newLocation);
 
 			//append the div we just constructed and popuated to the side bar
-			$(".my-side-bar").append($newLocation.accordion.header);
-			$(".my-side-bar").append($newLocation.accordion.body);
+			$(".my-side-bar").append(locationsGlobal[i].accordion.header);
+			$(".my-side-bar").append(locationsGlobal[i].accordion.body);
 
 		}//end of loop
 			
