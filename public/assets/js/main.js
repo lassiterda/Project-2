@@ -1,9 +1,6 @@
 //When the document is ready, the following code will run
 $(document).ready(function(){
 
-	$('.collapse').collapse()
-
-
 	// =============== Program Logic ===============
 
 	//we're declaring a global array to hold locations data
@@ -58,8 +55,6 @@ $(document).ready(function(){
 		event.preventDefault();
 
 		snatchSelectedLocations();
-
-
 
 
 	});//end of click-event
@@ -144,14 +139,11 @@ $(document).ready(function(){
 
 	//retrieves user trips from database
 	function getMyTrips() {
-
+		console.log('getMyTrips()');
 		//get all trips info
-		$.get("/api/trips")
+		$.get("/api/trip")
 		.done(function(data) {
-
-			//here we will clear and
-			//re-render the side bar
-			$("#side-bar").empty();
+			// console.log(data);
 
 			//this function will take care of the task.
 			//we have yet to write it, but we'll recycle
@@ -169,10 +161,6 @@ $(document).ready(function(){
 		$.get("/api/location")
 		.done(function(data) {
 
-			//here we will clear and
-			//re-render the side bar
-			$("#side-bar").empty();
-
 			//this function will take care of the task.
 			//we have yet to write it, but we'll recycle
 			//and tweak the code of the renderSideBarWithLocations function
@@ -186,27 +174,51 @@ $(document).ready(function(){
 	function renderSideBarWithTrips(trips) {
 
 		//emptying the side bar before re-populating it
-		$("#side-bar").empty();
+		$(".my-side-bar").empty();
+		// $(".accordion").fadeOut('slow');
 
-		for (i = 0; i <= trips.data.length; i++){
+		for (i = 0; i < trips.data.length; i++){
 
-			var $newTrip = $("<div />");
+			//setting properties to the object
+			$newTrip = {
+				accordion: {
+					header: $('<button />'),
+					body: $('<div />'),
+					list: $('<ul />')
+				}
+			};
 
-			$newTrip.addClass('trip-box');
-			$newTrip.attr('trip-id', trips.data[i].id);
+			// $newTrip.accordion.header.attr('trip-id', trips.data[i].id);
 
-			$newTrip.append("Trip Info Goes Here");
+			//link to css properties to render elements into accordion
+			$newTrip.accordion.header.addClass('accordion');
+			$newTrip.accordion.body.addClass('panel');
+
+			$newTrip.accordion.header.append(trips.data[i].name);
+
+			$newTrip.accordion.list.append('<li>'+ 'A' +'</li>');
+			$newTrip.accordion.list.append('<li>'+ 'B' +'</li>');
+			$newTrip.accordion.list.append('<li>'+ 'C' +'</li>');
+
+			$newTrip.accordion.body.append($newTrip.accordion.list);
+
+			//push individual div to global array
+			myTripsGlobal.push($newTrip);
+
+			//append the div we just constructed and popuated to the side bar
+			$(".my-side-bar").append($newTrip.accordion.header);
+			$(".my-side-bar").append($newTrip.accordion.body);
+
 		}
-
+		console.log(myTripsGlobal);
 	}
 
 	function renderSideBarWithLocations(locations){
 
 		//emptying the side bar before re-populating it
-		$("#side-bar").empty();
+		$(".my-side-bar").empty();
 
 		for (i = 0; i < locations.data.length; i++){
-			console.log('here');
 			var $newLocation = {};
 
 			$newLocation.isSelected = false;
@@ -249,9 +261,6 @@ $(document).ready(function(){
 			//append the div we just constructed and popuated to the side bar
 			$(".my-side-bar").append($newLocation.accordion.header);
 			$(".my-side-bar").append($newLocation.accordion.body);
-			
-			
-
 
 		}//end of loop
 			
