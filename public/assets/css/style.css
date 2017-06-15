@@ -104,7 +104,7 @@ footer {
   display: inline-block;
 }
 
-#side-bar {
+.my-side-bar {
   height: 70%;
   width: 40%;
   margin-bottom: 20px;
@@ -114,24 +114,24 @@ footer {
   padding: 0px;
 }
 
-.location-box {
-  /*width: 100% !important;*/
+/*.location-box {
   height: 85px;
   border: solid 1px black;
   padding: 10px;
   text-align: center;
   font-size: 13px;
-}
+
+}*/
 
 
-.location-box:active {
+/*.location-box:active {
   height: 85px;
   border: solid 1px black;
   padding: 10px;
   text-align: center;
   font-size: 13px;
   background-color: blue;
-}
+}*/
 
 
 .trip-box {
@@ -150,7 +150,7 @@ footer {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 90%;
   }
 }
 
