@@ -38,7 +38,7 @@ body {
   text-align: right;
 }
 .logo {
-  background-image: url(http://imgur.com/a/cxn2Q); 
+  background-image: url(http://imgur.com/a/cxn2Q);
 }
 
 /* Custom page footer */
@@ -47,7 +47,7 @@ body {
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
-        
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -65,7 +65,7 @@ body {
   padding: 14px 24px;
   font-size: 21px;
 }
-        
+
 .jumbotron h1 {
     font-size: 32px;
 }
@@ -110,27 +110,29 @@ footer {
   margin-bottom: 20px;
   /*border: solid 1px black;*/
   background-color: lightgrey;
-  overflow: scroll;
+  overflow: auto;
   padding: 0px;
 }
 
 .location-box {
   /*width: 100% !important;*/
-  height: 85px;
+  min-height: 85px;
   border: solid 1px black;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   font-size: 13px;
+  background-color: #bbb;
+  transition: 200ms;
+  cursor: pointer;
 }
 
 
-.location-box:active {
-  height: 85px;
-  border: solid 1px black;
-  padding: 10px;
+.location-box-active {
+  color: #b3b3b3;
+  padding: 5px;
   text-align: center;
   font-size: 13px;
-  background-color: blue;
+  background-color: #1565c0;
 }
 
 
@@ -146,7 +148,7 @@ footer {
 .trip-selector {
   float: right;
 }
-        
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -177,7 +179,7 @@ footer {
   }
   .jumbotron h1 {
     font-size: 40px;
-  }  
+  }
   .map-buttons button {
     flex-basis: 33%;
     width: 33%;
@@ -212,6 +214,8 @@ footer {
     width: 100%;
   }
 }
+
+
 
 /*TO CHANGE MODAL BACKGROUND OPACITY*/
 .modal-backdrop {
