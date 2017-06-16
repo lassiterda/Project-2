@@ -15,7 +15,6 @@ $(document).ready(function(){
 
 	//initializes home page
 	initHome();
-	initScrollIndicatorToggles();
 
 	//it is assumed that if this click event triggers, the btn is not disabled anymore
 	$("#my-trips-btn").on("click", function() {
@@ -124,33 +123,15 @@ $(document).ready(function(){
 
 	// =============== FUNCTIONS ===============
 
-	function initScrollIndicatorToggles() {
-		// create a variable; assign this to timeout later
-		var t = null;
-		// grab the scroll indicator element
-		var scrollIndicator = $('.scroll-indicator')[0];
-		// when the sidebar fires a scroll event...
-		$('#side-bar').on('scroll', function() {
-			// toggle-on the indicator's scrolling class to hide it
-			scrollIndicator.classList.add('scrolling');
-			// if there was a timeout set, remove it
-			if (t) { clearTimeout(t); }
-			// assign a new timeout to 't'
-			t = setTimeout(function() {
-				// toggle-off the indicator's scrolling class to show it
-				// the overall effect is that we see the indicator after a brief period of inactivity
-				scrollIndicator.classList.remove('scrolling');
-			}, 1500);
-		});
-	}
-
 	function initHome() {
 
 		//enables My Trips button is there is at least one trip in database
 		areThereTrips();
 
+		var currentURL = window.location.origin;
+
 		//API call to the server to retrieve locations data
-		$.get("/api/location")
+		$.get(currentURL + "/api/location")
 		.done(function(data) {
 
 			const Charlotte = {
@@ -277,7 +258,7 @@ $(document).ready(function(){
 
 // Populates the sideBar with Locations retreived from the db.
 	function renderSideBarWithLocations(locations){
-    
+
 		//emptying the side bar before re-populating it
 		$(".my-side-bar").empty();
 
@@ -337,7 +318,7 @@ $(document).ready(function(){
 
 	}
 
-
+	// populates
 	function renderPins(map, locations) {
 
 		for(i = 0; i < locations.data.length; i++) {
@@ -448,4 +429,3 @@ $(document).ready(function(){
 			Arrmarkers[i].setMap(map);
 		}
 	}
-
