@@ -3,7 +3,7 @@
     <div class="row map-wrapper">
         <div id="accordion" role="tablist" aria-multiselectable="true" class="col-sm-3 stack my-side-bar">
             {{!-- This side bar div will be populated dynamically. --}}
-            
+
         </div> {{!-- end side-bar --}}
         <div id="map-location" class="col-sm-9 stack"></div>
     </div>
@@ -91,22 +91,30 @@
 
 <div id='modal-2'>
     {{!-- build trip modal --}}
-    <div class="modal modal-fade" id="build-trip-modal">
+    <div class="modal modal-fade" id="save-trip-modal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Sort Locations</h5>
+                    <h5 class="modal-title">Save Trip</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
               <div class="modal-body">
-                {{!-- <p>BODY GOES HERE</p> --}}
-                <ul id='my-ui-list'>
-                    {{!-- will be dynamically populated --}}
-                </ul>
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" value="Latta Arcade" id="trip-name-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="trip-desc-input" class="col-2 col-form-label">Description</label>
+                    <div class="col-10">
+                        <textarea class="form-control" id="trip-desc-input" rows="3"></textarea>
+                    </div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="submit-location" action="post">Save</button>
+                    <button type="button" class="btn btn-primary" id="submit-trip" action="post">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -116,9 +124,5 @@
 
 
 <script type="text/javascript" src="/assets/js/main.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script> 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script>
 <script type="text/javascript" src="/assets/js/accordion.js"></script>
-
-
-
-

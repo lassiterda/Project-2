@@ -37,7 +37,6 @@ module.exports = function(app) {
   app.post("/user/register", (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
-
       req.body.password = hash;
 
       db.User.create(req.body)

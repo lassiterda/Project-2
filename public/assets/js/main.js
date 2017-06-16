@@ -70,6 +70,27 @@ $(document).ready(function(){
 					}
 				});
 
+				$("#my-trips-btn")
+					.text("Save")
+					.off()
+					.on("click", function(e) {
+						filterSelectedLocations(function($selected) {
+							$("#save-trip-modal").modal();
+						})
+					})
+
+
+				$("#build-trip-btn")
+					.removeClass("btn-primary")
+					.addClass('btn-danger')
+					.text("Reset")
+					.off()
+					.on("click", function(e) {
+						window.location.reload();
+					})
+
+
+
 				clearMarkers();
 				renderTrip($selected)
 			});
@@ -77,7 +98,27 @@ $(document).ready(function(){
 
 
 	});//end of click-event
-	// =============== End of Program Logic ===============
+
+	$("#submit-trip").on("click", function() {
+		var tripName = $("#trip-name-input").val().trim();
+		var tripDesc = $("#trip-desc-input").val().trim()
+
+		var request = {
+			name: tripName,
+			description: tripDesc,
+			locations: $(".accordion").map(function(idx, ele) {
+				return $(ele).attr("location-id")
+			}).toArray()
+		}
+
+		console.log(request);
+
+		$.post("/api/trip/create", request)
+			.done(function(response) {
+				window.location.reload();
+			})
+	})
+		// =============== End of Program Logic ===============
 })//end of document.ready
 
 	// =============== FUNCTIONS ===============
@@ -387,8 +428,4 @@ $(document).ready(function(){
 		for (var i = 0; i < Arrmarkers.length; i++) {
 			Arrmarkers[i].setMap(map);
 		}
-	}
-
-	function saveTrip(arrLocs){
-		
 	}

@@ -17,14 +17,17 @@ module.exports = function(app) {
 	})
 
 	app.get("/login", (req, res) => {
+		if (req.user) {
+			res.redirect('/home')
+		}
 		res.render('login')
 	})
 
-	app.get("/home", (req, res) => {
+	app.get("/home", checkAuthenticated, (req, res) => {
 		res.render('home')
 	})
 
-	app.get("/profile", (req, res) => {
+	app.get("/profile",checkAuthenticated, (req, res) => {
 		res.render('profile')
 	})
 }
