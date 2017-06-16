@@ -38,7 +38,7 @@ body {
   text-align: right;
 }
 .logo {
-  background-image: url(http://imgur.com/a/cxn2Q); 
+  background-image: url(http://imgur.com/a/cxn2Q);
 }
 
 /* Custom page footer */
@@ -47,7 +47,7 @@ body {
   color: #777;
   border-top: 1px solid #e5e5e5;
 }
-        
+
 .container-narrow > hr {
   margin: 30px 0;
 }
@@ -65,7 +65,7 @@ body {
   padding: 14px 24px;
   font-size: 21px;
 }
-        
+
 .jumbotron h1 {
     font-size: 32px;
 }
@@ -110,8 +110,22 @@ footer {
   margin-bottom: 20px;
   /*border: solid 1px black;*/
   background-color: lightgrey;
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: scroll;
   padding: 0px;
+}
+
+.my-side-bar::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.my-side-bar::-webkit-scrollbar-thumb
+{
+	border-radius: 5px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
 }
 
 /*.location-box {
@@ -146,7 +160,7 @@ footer {
 .trip-selector {
   float: right;
 }
-        
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
@@ -177,7 +191,7 @@ footer {
   }
   .jumbotron h1 {
     font-size: 40px;
-  }  
+  }
   .map-buttons button {
     flex-basis: 33%;
     width: 33%;

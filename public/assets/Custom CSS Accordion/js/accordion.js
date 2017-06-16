@@ -4,13 +4,13 @@ $(document).on('click', '.accordion', function() {
 
 	for (i = 0; i < acc.length; i++) {
 		acc[i].onclick = function() {
-			this.classList.toggle("active");
+				// this.classList.toggle("active");
 			var panel = this.nextElementSibling;
 			if (panel.style.maxHeight){
 				panel.style.maxHeight = null;
 			} else {
 				panel.style.maxHeight = panel.scrollHeight + "px";
-			} 
+			}
 		}
 	}
 })//end of document.ready

@@ -7,8 +7,8 @@ const ResponeObj = require('./api-response-constructor.js');
 //defining local login strategy using brypt to compare hashed pass with input
 passport.use(new LocalStrategy(
   (username, password, done) => {
-
-    db.User.findOne({ where: {username: username} })
+    console.log(username);
+    db.User.findOne({ where: {userName: username} })
       .then((dbUser) => {
         if(!dbUser) {
           console.log("Incorrect Username");
@@ -37,14 +37,14 @@ module.exports = function(app) {
   app.post("/user/register", (req, res) => {
     bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(req.body.password, salt, function(err, hash) {
+
       req.body.password = hash;
-      console.log(req.body);
 
       db.User.create(req.body)
         .then((dbUser) => {
           delete dbUser.dataValues.password;
           delete dbUser.dataValues.userType;
-          console.log(dbUser);
+
           res.json(new ResponeObj(dbUser, "Success, user created.")) })
         .catch(err => {
           console.log(err);
