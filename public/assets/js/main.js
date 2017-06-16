@@ -1,13 +1,14 @@
 //When the document is ready, the following code will run
-$(document).ready(function(){
-
 	// =============== Program Logic ===============
 
 	//we're declaring a global array to hold locations data
-	//so that we may access it from anywhere in the program 
+	//so that we may access it from anywhere in the program
 	//without running into scoping issues
 	var locationsGlobal = [];
-	var myTripsGlobal= [];
+	var myTripsGlobal = [];
+	var Arrmarkers = [];
+
+$(document).ready(function(){
 
 	//initializes home page
 	initHome();
@@ -43,7 +44,7 @@ $(document).ready(function(){
 	});//end of click-event
 
 	$('#add-location-btn').on('click', function() {
-		
+
 		//prevents the element's default behavior from triggering
 		event.preventDefault();
 		addLocation();
@@ -51,21 +52,24 @@ $(document).ready(function(){
 
 	$('#build-trip-btn').on('click', function() {
 
-		//prevents the element's default behavior from triggering
-		event.preventDefault();
+		if ($(".location-selected").length < 2) {
+			console.log();
+		}
+		else {
+			filterSelectedLocations(function($selected) {
 
-		snatchSelectedLocations();
+				var list = document.getElementById("accordion");
+				Sortable.create(list);
+
+				clearMarkers();
+				renderTrip($selected, directionsService, directionsDisplay)
+			});
+		}
 
 
 	});//end of click-event
-
-
-
-
-
 	// =============== End of Program Logic ===============
-
-	// *****************************************************
+})//end of document.ready
 
 	// =============== FUNCTIONS ===============
 
@@ -80,12 +84,20 @@ $(document).ready(function(){
 		$.get(currentURL + "/api/location")
 		.done(function(data) {
 
-			
+			const Charlotte = {
+				center: {lat: 35.22, lng: -80.84},
+				scrollwheel: false,
+				zoom: 13
+			}
 
-			initMap(data);
+			//map setup
+	    directionsDisplay = new google.maps.DirectionsRenderer();
+	    directionsService = new google.maps.DirectionsService();
+			map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
 
-			//initMap(data);
+		  directionsDisplay.setMap(map)
 
+			renderPins(map, data)
 			//here we have our locations data from the API
 			//now we have to render map, render pins, and render side bar
 			//|-> initHome()
@@ -99,24 +111,7 @@ $(document).ready(function(){
 
 	}//end of initHome
 
-	function initMap(data) {
-
-		//coordinates and settings for Charlotte Map
-		const Charlotte = {
-			center: {lat: 35.22, lng: -80.84},
-			scrollwheel: false,
-			zoom: 13
-		}
-
-		//map
-		map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
-
-		renderPins(map, data);
-
-	}//end of initMap
-
-	
-	//returns nothing. used to disable or disable My Trips button
+	// TODO returns nothing. used to disable or disable My Trips button
 	function areThereTrips() {
 
 		//remove this line once AJAX call works
@@ -131,30 +126,27 @@ $(document).ready(function(){
 		// 	if(true){
 		// 		$("#my-trips-btn").prop("disabled", false);
 		// 	}
-			
+
 		// })
 
 	}//end of areThereTrips
 
-
 	//retrieves user trips from database
 	function getMyTrips() {
-		console.log('getMyTrips()');
 		//get all trips info
-		$.get("/api/trip")
-		.done(function(data) {
-			// console.log(data);
-
+		$.get("/api/user")
+		.done(function(response) {
+			console.log(response);
 			//this function will take care of the task.
 			//we have yet to write it, but we'll recycle
 			//and tweak the code of the renderSideBarWithLocations function
-			renderSideBarWithTrips(data);
-		
+			renderSideBarWithTrips(response.data[0].Trips);
+
 		})
 
 	}//end of showMyTrips
 
-
+	//retreives All Locations from the db sorted by numLikes
 	function getLocations() {
 
 		//get all trips info
@@ -165,19 +157,19 @@ $(document).ready(function(){
 			//we have yet to write it, but we'll recycle
 			//and tweak the code of the renderSideBarWithLocations function
 			renderSideBarWithLocations(data);
-		
+
 		})
 
 	}
 
-
-	function renderSideBarWithTrips(trips) {
+	// populates the sidebar with Trips based on the response from the db
+	function renderSideBarWithTrips(apiTrips) {
 
 		//emptying the side bar before re-populating it
 		$(".my-side-bar").empty();
 		// $(".accordion").fadeOut('slow');
 
-		for (i = 0; i < trips.data.length; i++){
+		for (i = 0; i < apiTrips.length; i++){
 
 			//setting properties to the object
 			$newTrip = {
@@ -194,11 +186,14 @@ $(document).ready(function(){
 			$newTrip.accordion.header.addClass('accordion');
 			$newTrip.accordion.body.addClass('panel');
 
-			$newTrip.accordion.header.append(trips.data[i].name);
+			$newTrip.accordion.header.append(apiTrips[i].name);
+			$newTrip.accordion.header.append($newTrip.accordion.selectToggle);
 
-			$newTrip.accordion.list.append('<li>'+ 'A' +'</li>');
-			$newTrip.accordion.list.append('<li>'+ 'B' +'</li>');
-			$newTrip.accordion.list.append('<li>'+ 'C' +'</li>');
+
+			apiTrips[i].Locations.forEach(function(ele){
+				$newTrip.accordion.list.append('<li>'+ ele.name +'</li>');
+				$newTrip.accordion.list.append('<p class="location-address">'+ ele.address +'</p>');
+			})
 
 			$newTrip.accordion.body.append($newTrip.accordion.list);
 
@@ -208,11 +203,10 @@ $(document).ready(function(){
 			//append the div we just constructed and popuated to the side bar
 			$(".my-side-bar").append($newTrip.accordion.header);
 			$(".my-side-bar").append($newTrip.accordion.body);
-
 		}
-		console.log(myTripsGlobal);
 	}
 
+// Populates the sideBar with Locations retreived from the db.
 	function renderSideBarWithLocations(locations){
 
 		//emptying the side bar before re-populating it
@@ -226,7 +220,9 @@ $(document).ready(function(){
 			//setting properties to the object
 			$newLocation = {
 				accordion: {
+					container: $('<div />').addClass("accordion-container"),
 					header: $('<button />'),
+					selectAdd: $('<img />').attr("src", "/assets/icons/core/plus-circle.svg").addClass("select-add").css("float", "right"),
 					body: $('<div />')
 				}
 			};
@@ -251,33 +247,40 @@ $(document).ready(function(){
 			$newLocation.accordion.header.addClass('accordion');
 			$newLocation.accordion.body.addClass('panel');
 
-			$newLocation.accordion.header.append(locations.data[i].name);
+			$newLocation.accordion.header.append("<a href='#' class='accordion-expand'>" + locations.data[i].name + "</a>");
 			$newLocation.accordion.body.append('<p>'+locations.data[i].description+'</p>');
+			$newLocation.accordion.container.append($newLocation.accordion.header)
+			$newLocation.accordion.container.append($newLocation.accordion.panel)
+			$newLocation.accordion.header.append($newLocation.accordion.selectAdd)
 
+			$newLocation.accordion.header.attr("location-id",locations.data[i].id);
+			$newLocation.accordion.header.attr("lat", locations.data[i].lat);
+			$newLocation.accordion.header.attr("lng", locations.data[i].lng);
 
 			//push individual div to global array
 			locationsGlobal.push($newLocation);
 
 			//append the div we just constructed and popuated to the side bar
-			$(".my-side-bar").append($newLocation.accordion.header);
+			$(".my-side-bar").append($newLocation.accordion.container);
 			$(".my-side-bar").append($newLocation.accordion.body);
 
 		}//end of loop
-			
+
 	}
 
-
+	// populates
 	function renderPins(map, locations) {
 
 		for(i = 0; i < locations.data.length; i++) {
 			var position = new google.maps.LatLng(locations.data[i].lat, locations.data[i].lng);
-	                
+
 	                marker = new google.maps.Marker({
 	                	position: position,
 	                	map: map,
 	                	animation: google.maps.Animation.DROP,
 	                	title: locations.data[i].name
 	                });
+					Arrmarkers.push(marker)
         }
 
 	}
@@ -313,7 +316,7 @@ $(document).ready(function(){
 				initHome();
 
 			});
-			
+
 			// alertify.success("Location successfully added!");
 
 		})
@@ -321,58 +324,59 @@ $(document).ready(function(){
 
 	}
 
-	function snatchSelectedLocations() {
+	//removed unselected elements, then execute the callback
+	function filterSelectedLocations(cb) {
 
-		let tripDirections = [];
+	 var $selected = $(".accordion").filter(function(idx, ele) {
+			if ($(ele).hasClass('location-selected')) {
+					return true
+				}
+				else {
+					$(ele).fadeOut("medium", function(){
+						$(ele).remove();
+					})
+					return false
+				}
+			})
 
-		for (var i = 0; i < locationsGlobal.length; i++) {
-
-			if(locationsGlobal[i].isSelected === true){
-
-				tripDirections.push(locationsGlobal[i]);
-
-			}
-
-		};//end of for loop
-
-		renderTrip(tripDirections);
-
-
-
-	}//end of snatchSelectedLocations
-
-	function renderTrip(selectedLocations) {
-
-		let tripLocations = [];
-
-		var list = document.getElementById('my-ui-list');
-		var $listItem = $('<li />');
-
-		selectedLocations.forEach(function(e){
-			$listItem.text(e.about.name);
-			tripLocations.push($listItem);
-		});
-
-		//coordinates and settings for Charlotte Map
-		const Charlotte = {
-			center: {lat: 35.22, lng: -80.84},
-			scrollwheel: false,
-			zoom: 13
-		}
-
-		//new map we'll use 
-		// map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
-
-		$('#build-trip-modal').modal('show');
-
-		tripLocations.forEach(function(e) {
-			$('#my-ui-list').append(e);
-		});
-
-
+		cb($selected)
 
 	}
 
-	// =============== END OF FUNCTIONS ===============
+	function renderTrip(arrLocs, directionsService, directionsDisplay) {
 
-})//end of document.ready
+    var origin = arrLocs.first()
+    var destination = arrLocs.last();
+		arrLocs.each(function(idx, ele) {
+			if ( idx === 0 || idx === arrLocs.length -1 ) {
+				arrLocs.splice(idx, 1)
+			}
+		})
+
+		var request = {
+				origin: new google.maps.LatLng(origin.attr("lat"),origin.attr("lng")),
+			  destination: new google.maps.LatLng(destination.attr("lat"),destination.attr("lng")),
+				waypoints: arrLocs.map(function(idx, ele){
+				  return { location: new google.maps.LatLng(ele.getAttribute("lat"), ele.getAttribute("lng")), stopover: true }
+				 }),
+				travelMode: google.maps.TravelMode["WALKING"]
+		}
+
+		directionsService.route(request, function(response, status) {
+				if(status == "OK") {
+						directionsDisplay.setDirections(response);
+						console.log(response);
+		}});
+
+	}
+
+
+	function clearMarkers() {
+		setMapOnAll(null);
+	}
+
+	function setMapOnAll(map) {
+		for (var i = 0; i < Arrmarkers.length; i++) {
+			Arrmarkers[i].setMap(map);
+		}
+	}

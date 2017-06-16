@@ -14,11 +14,11 @@ button.accordion {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 button.accordion.active, button.accordion:hover {
-    background-color: #ddd;
+    background-color: #c0ff33;
 }
 
 /* Add + and - signs */
-button.accordion:after {
+/*button.accordion:after {
     content: '\002B';
     color: #777;
     font-weight: bold;
@@ -28,27 +28,14 @@ button.accordion:after {
 
 button.accordion.active:after {
     content: "\2212";
-}
+}*/
 
 /* Style the accordion panel. Note: hidden by default */
 div.panel {
     padding: 0 18px;
+    font-size: 12px;
     background-color: white;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
