@@ -31,38 +31,38 @@
 <body>
   <div class="container">
     <div class="header clearfix">
-      <nav>
+      <nav class="center-contents-vert">
         <ul class="nav nav-pills float-right">
 				{{#if user}}
 					<li class="nav-item">
-						<a class="nav-link" href="/home">Main</a>
+						<a class="nav-link center-contents-vert" href="/home">Main</a>
 					</li>
 					<li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
+            <a class="nav-link center-contents-vert" href="/profile">Profile</a>
           </li>
 				  <li class="nav-item">
             <a class="nav-link" href="/user/logout">Logout</a>
           </li>
 				{{else}}
           <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link center-contents-vert" href="/register">Register</a>
           </li>
 					<li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-linkcenter-contents-vert" href="/login">Login</a>
           </li>
 				{{/if }}
         </ul>
       </nav>
-      <h3 class="text-muted">WC</h3>
+      <h3 class="text-muted center-contents-vert logo"><a href="/" class="home-link"><img src="images/logo.png" alt="logo" /></a></h3>
     </div>
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 no-padding">
         {{{body}}}
     </div>
 
     <footer class="footer">
-      <p>&copy; 2017 Walkabout Charlotte </p>
+      <p>&copy; Walkabout Charlotte, 2017 </p>
     </footer>
 
   </div> <!-- /container -->

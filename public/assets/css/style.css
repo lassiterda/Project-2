@@ -1,10 +1,14 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+	padding: 0 15px;
+}
+
+.container {
+	padding-left: 0;
+	padding-right: 0;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
+.pad-sides,
 .marketing,
 .footer {
   padding-right: 15px;
@@ -13,30 +17,62 @@ body {
 
 /* Custom page header */
 .header {
-  padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
   position: relative;
+  padding: 20px 0;
+  width: 100%;
 }
+
 /* Make the masthead heading the same height as the navigation */
-.header h3 {
+.logo {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
   position: absolute;
   top: 0;
   left: 0;
+  height: 100%;
 }
+.home-link {
+  height: auto;
+  width: 30px;
+  position: absolute;
+  left: 0;
+}
+.home-link img {
+  max-width: 100%;
+  height: auto;
+}
+
+nav {
+  width: 100%;
+  height: 50px;
+}
+
 .nav {
   width: 100%;
   max-width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
+  padding-left: 15%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
+
 .nav li {
-  flex-basis: 40%;
+  -ms-flex-preferred-size: 15%;
+      flex-basis: 15%;
+  font-size: 14px;
   text-align: right;
+  height: 100%;
+  padding: 8px;
 }
+
 .logo {
   background-image: url(http://imgur.com/a/cxn2Q);
 }
@@ -54,20 +90,71 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+  -webkit-filter: grayscale(25%) saturate(90%);
+          filter: grayscale(25%) saturate(90%);
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
   background-image: url('../images/clt_skyline.jpg') !important;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   color: white;
+  padding: 60px 30px;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
+
+.jumbotron.hovered {
+	-webkit-filter: grayscale(0);
+	        filter: grayscale(0);
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+@-webkit-keyframes grow {
+	0% {
+		background-size: auto 100%;
+	}
+	100%  {
+		background-size: auto 105%;
+	}
+}
+
+@keyframes grow {
+	0% {
+		background-size: auto 100%;
+	}
+	100%  {
+		background-size: auto 105%;
+	}
+}
+
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
 }
 
 .jumbotron h1 {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 25px;
+    margin-top: 15px;
+}
+
+.jumbotron p {
+	width: 84%;
+	margin-left: 8%;
+	margin-bottom: 30px;
+}
+
+.triptych {
+	padding: 0 20px;
+	max-width: 100%;
+}
+
+.triptych div {
+	margin-bottom: 20px;
 }
 
 /* Supporting marketing content */
@@ -80,41 +167,122 @@ body {
 
 footer {
   margin-top: 40px;
+  width: 100%;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 13px;
 }
 
 .page-header{
-  margin-top: 0;
+  margin: 20px 0;
+}
+
+ .map-wrapper {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  max-width: 100%;
+  left: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
 }
 
 #map-location {
-  height: 70%;
-  width: 60%;
-  margin-bottom: 20px;
-}
-.stack {
+	height: 50%;
   width: 100%;
-}
-.map-buttons {
-  flex-wrap: wrap;
-  display: flex;
-}
-.map-buttons button {
-  flex-basis: 100%;
-  width:100%;
-  display: inline-block;
+  /* to eliminate css re-ordering, remove this line: */
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
-.my-side-bar {
-  height: 70%;
-  width: 40%;
-  margin-bottom: 20px;
-  /*border: solid 1px black;*/
+.map-menu {
+	padding: 0 10px 0 15px;
+}
+
+.map-buttons {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 0 0 0;
+}
+
+.map-buttons button {
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+  width:100%;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+#side-bar {
   background-color: lightgrey;
   overflow-x: auto;
   overflow-y: scroll;
   padding: 0px;
+  height: 50%;
+  width: 100%;
+  border: none;
+  outline: none;
+  /* to eliminate css re-ordering, remove this line: */
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
 }
 
+.scroll-indicator {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 24px;
+	background: -webkit-gradient(linear, left top, left bottom, from(lightgrey), color-stop(rgba(0,0,0,0.08)), to(rgba(0,0,0,0)));
+	background: linear-gradient(lightgrey, rgba(0,0,0,0.08), rgba(0,0,0,0));
+	text-align: center;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+  /* to eliminate css re-ordering, remove this line: */
+	-webkit-box-ordinal-group: 4;
+	    -ms-flex-order: 3;
+	        order: 3;
+}
+
+.scroll-indicator.scrolling {
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-out;
+	transition: all 0.4s ease-out;
+}
+
+.scroll-top-wrapper {
+	padding: 0;
+	height: 60px;
+	padding: 5px 0 0;
+}
+
+#chevron-icon {
+	display: block;
+	width: 100%;
+	height: 40px;
+	background-image: url('/assets/icons/arrows/chevrons-up.svg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: auto 60%;
+	border-radius: 2px;
+}
+  
 .my-side-bar::-webkit-scrollbar
 {
 	width: 12px;
@@ -130,7 +298,7 @@ footer {
 
 /*.location-box {
   height: 85px;
-  border: solid 1px black;
+  border-bottom: solid 1px rgba(0,0,0,0.4);
   padding: 10px;
   text-align: center;
   font-size: 13px;
@@ -149,7 +317,6 @@ footer {
 
 
 .trip-box {
-  /*width: 100% !important;*/
   height: 85px;
   border: solid 1px black;
   padding: 10px;
@@ -161,13 +328,53 @@ footer {
   float: right;
 }
 
+.no-padding {
+	padding: 0 0 0 0;
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+.center-contents-vert {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 370px) {
+  .home-link {
+    width: 60px;
+  }
+  .nav li a {
+    padding: 0.5em 1em;
+
 /* Customize container */
 @media (min-width: 768px) {
   .container {
     max-width: 90%;
+
   }
 }
 
+@media screen and (min-width: 576px) {
+	#chevron-icon {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 640px) {
+	.jumbotron h1 {
+		font-size: 32px;
+	}
+}
 
 @media screen and (min-width: 768px) {
 /* Remove the padding we set earlier */
@@ -177,24 +384,64 @@ footer {
     padding-right: 0;
     padding-left: 0;
   }
+  .home-link {
+  
+  width: 100px;
+}
+
+  .container {
+    max-width: 730px;
+  }
+
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
 
   }
   .nav li {
-    flex-basis: 25%;
+    -ms-flex-preferred-size: 20%;
+        flex-basis: 20%;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
   }
   .jumbotron h1 {
+    font-size: 44px;
+  }  
+  .triptych div {
+		padding-left: 0;
+		padding-right: 0;
+	}
+  .map-wrapper {
+  	margin-top: 5px;
+  }
+  #map-location {
+  	height: 100%;
+  	width: 50%;
+  	-webkit-box-ordinal-group: 3;
+  	    -ms-flex-order: 2;
+  	        order: 2;
+  }
+  #side-bar {
+  	height: 100%;
+  	width: 50%;
+  	-webkit-box-ordinal-group: 2;
+  	    -ms-flex-order: 1;
+  	        order: 1;
+  }
+  .scroll-indicator {
+  	left: 0;
+  	right: 50%;
+  	width: calc((100% / 12) * 5);
+
     font-size: 40px;
+
   }
   .map-buttons button {
-    flex-basis: 33%;
-    width: 33%;
+    -ms-flex-preferred-size: calc(100% / 3);
+        flex-basis: calc(100% / 3);
+    width: calc(100% / 3);
   }
   #chevron-icon{
     display: none;
@@ -212,18 +459,52 @@ footer {
 
   .container {
     width: 100%;
+    max-width: 740px;
   }
 }
+
 /* For Desktop */
 @media screen and (min-width: 992px) {
+	.nav li {
+		-ms-flex-preferred-size: 15%;
+		    flex-basis: 15%;
+	}
+
+	.jumbotron .lead {
+		width: 60%;
+		margin: 40px 20%;
+	}
+
+	.triptych {
+		margin-top: 40px;
+	}
+
+	.triptych div {
+		padding-right: 15px;
+		padding-left: 15px;
+	}
+
+	.triptych div:first-child {
+		padding-left: 0;
+	}
+
+	.triptych div:last-child {
+		padding-right: 0;
+	}
+
   #chevron-icon{
     display: none;
     margin-top: 2px;
     text-align: center;
   }
 
-  body {
-    width: 100%;
+  .container {
+  	max-width: 960px;
+  }
+
+  .footer {
+  	padding-top: 30px;
+  	padding-bottom: 10px;
   }
 }
 
