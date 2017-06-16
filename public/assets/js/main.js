@@ -114,6 +114,16 @@ $(document).ready(function() {
                 window.location.reload();
             })
     })
+
+    $(document).on("click", ".location-render", function(event) {
+      event.preventDefault();
+      clearMarkers();
+
+      var tripId = parseInt(event.target.parentNode.getAttribute("trip-id"))
+      var matchingTrip = myTripsGlobal.filter(function(trip){ return trip.id === tripId})[0]
+
+      renderTrip(matchingTrip.Locations)
+    })
     // =============== End of Program Logic ===============
 }) //end of document.ready
 
@@ -213,59 +223,49 @@ function getLocations() {
 
 // populates the sidebar with Trips based on the response from the db
 function renderSideBarWithTrips(apiTrips) {
-
-    //emptying the side bar before re-populating it
     $(".my-side-bar").empty();
-    // $(".accordion").fadeOut('slow');
-
-    for (i = 0; i < apiTrips.length; i++) {
-
-        //setting properties to the object
-        $newTrip = {
-            accordion: {
-                header: $('<button />'),
-                body: $('<div />'),
-                list: $('<ul />')
-            }
-        };
-
-        // $newTrip.accordion.header.attr('trip-id', trips.data[i].id);
-
-        //link to css properties to render elements into accordion
-        $newTrip.accordion.header.addClass('accordion');
-        $newTrip.accordion.body.addClass('panel');
-
-        $newTrip.accordion.header.append(apiTrips[i].name);
-        $newTrip.accordion.header.append($newTrip.accordion.selectToggle);
-
-
-
-        //could this be a for each...? or jQuery .each()?
-        $newTrip.accordion.list.append('<li>' + 'A' + '</li>');
-        $newTrip.accordion.list.append('<li>' + 'B' + '</li>');
-        $newTrip.accordion.list.append('<li>' + 'C' + '</li>');
-        $newTrip.accordion.list.append('<li>' + 'Estimated Time' + '</li>');
-
-        apiTrips[i].Locations.forEach(function(ele) {
-            $newTrip.accordion.list.append('<li>' + ele.name + '</li>');
-            $newTrip.accordion.list.append('<p class="location-address">' + ele.address + '</p>');
-        })
-
-        $newTrip.accordion.body.append($newTrip.accordion.list);
-
-        //push individual div to global array
-        myTripsGlobal.push($newTrip);
-
-        //append the div we just constructed and popuated to the side bar
-
-        $(".my-side-bar").append(myTripsGlobal[i].accordion.header);
-        $(".my-side-bar").append(myTripsGlobal[i].accordion.body);
-
-
-        $(".my-side-bar").append($newTrip.accordion.header);
-        $(".my-side-bar").append($newTrip.accordion.body);
+    myTripsGlobal = []
+    if(apiTrips.length === 0) {
 
     }
+    else {
+      for (i = 0; i < apiTrips.length; i++) {
+        //push individual trip to global array
+        myTripsGlobal.push(apiTrips[i]);
+          //setting properties to the object
+          $newTrip = {
+              accordion: {
+                  container: $("<div />"),
+                  header: $('<button />').addClass('accordion').attr("trip-id", apiTrips[i].id),
+                  selectAdd: $('<img />').attr("src", "/assets/icons/core/plus-circle.svg").addClass("select-add").css("float", "right"),
+                  body: $('<div />').addClass('panel'),
+                  list: $('<ol />').attr("type", "A")
+              }
+          };
+
+          $newTrip.accordion.header.append("<a href='#' class='location-render'>" + apiTrips[i].name + "</a>");
+          $newTrip.accordion.header.append($newTrip.accordion.selectAdd);
+
+          //could this be a for each...? or jQuery .each()?
+          apiTrips[i].Locations.forEach(function(loc) {
+            var $li = $("<li>")
+            $li.text(loc.name);
+            $newTrip.accordion.list.append($li);
+            $newTrip.accordion.list.append('<p class="location-address">' + loc.address + '</p>');
+
+          })
+          $newTrip.accordion.list.append('<h6>' + 'Total Time: ' + '</h6>');
+
+          $newTrip.accordion.body.append($newTrip.accordion.list);
+
+
+
+          //append the div we just constructed and popuated to the side bar
+          $newTrip.accordion.container.append($newTrip.accordion.header)
+          $(".my-side-bar").append($newTrip.accordion.container);
+          $(".my-side-bar").append($newTrip.accordion.body);
+      }
+  }
 }
 
 // Populates the sideBar with Locations retreived from the db.
@@ -331,8 +331,6 @@ function renderSideBarWithLocations(locations) {
 
 }
 
-// populates
-
 function renderPins(map, locations) {
 
     for (i = 0; i < locations.data.length; i++) {
@@ -389,7 +387,6 @@ function addLocation() {
 }
 
 //remove unselected elements, then execute the callback
-
 function filterSelectedLocations(cb) {
 
     var $selected = $(".accordion").filter(function(idx, ele) {
@@ -408,7 +405,8 @@ function filterSelectedLocations(cb) {
 }
 
 function renderTrip(arrLocs) {
-
+  //if arrlocs is Jquery 'array'
+  if(arrLocs instanceof jQuery) {
     var orig = arrLocs.first()
     var dest = arrLocs.last();
     arrLocs.each(function(idx, ele) {
@@ -437,6 +435,34 @@ function renderTrip(arrLocs) {
         }).toArray(),
         travelMode: google.maps.TravelMode["WALKING"]
     }
+  }
+
+  else {
+    console.log(arrLocs);
+    var origin = arrLocs.shift()
+    var destination = arrLocs.pop();
+
+    var request = {
+      origin: {
+          lat: parseFloat(origin.lat),
+          lng: parseFloat(origin.lng)
+        },
+      destination: {
+          lat: parseFloat(destination.lat),
+          lng: parseFloat(destination.lng)
+        },
+      waypoints: arrLocs.map(function(loc) {
+          return {
+              location: {
+                lat: parseFloat(loc.lat),
+                lng: parseFloat(loc.lng)},
+              stopover: true
+            }
+      }),
+      travelMode: google.maps.TravelMode["WALKING"]
+    }
+    console.log(request);
+  }
 
     directionsService.route(request, function(response, status) {
         if (status == "OK") {

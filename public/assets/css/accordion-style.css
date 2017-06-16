@@ -57,3 +57,14 @@ div.panel {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
+
+div.panel ol {
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+div.panel ol p {
+  font-weight: normal;
+}
