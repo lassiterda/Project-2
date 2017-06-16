@@ -1,20 +1,21 @@
 <div class = "container-fluid">
     {{!--Map Location--}}
     <div class="row map-wrapper">
-        <div id="side-bar" class="col-sm-3 stack">
+        <div id="map-location" class="col-sm-12 col-md-7 col-lg-9 stack"></div>
+        <div id="side-bar" class="col-sm-12 col-md-5 col-lg-3 stack">
             {{!-- This side bar div will be populated dynamically. --}}
         </div>
-        <div id="map-location" class="col-sm-9 stack"></div>
+        <div class="scroll-indicator center-contents-vert col-sm-12 col-md-5 col-lg-3">&xdtri;</div>
     </div>
     <div class="row">
-        <div class="col-sm-9 offset-sm-3">
+        <div class="col-sm-12 col-md-12 col-lg-12 map-menu">
             <div class="btn-group map-buttons"  role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" id="add-location-btn" data-toggle="modal" data-target="add-location-modal">Add Location</button>
                 <button type="button" class="btn btn-info">Build Trip</button>
                 <button type="button" class="btn btn-primary" id="my-trips-btn" disabled>My Trips</button>
             </div>
-            <div class="col-sm-7 offset-sm-3    ">
-                <button type="button" class="btn btn-success" id="chevron-icon"><img src="assets/icons/arrows/chevrons-up.svg" alt="up-chev"></button>
+            <div class="col-sm-7 offset-sm-3 scroll-top-wrapper">
+                <button type="button" class="btn btn-success" id="chevron-icon"></button>
             </div>
         </div>
     </div>
@@ -80,6 +81,6 @@
         </div>
     </div> {{!-- end of modal --}}
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script> 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk" async defer></script> 
 <script type="text/javascript" src="/assets/js/main.js"></script>
 
