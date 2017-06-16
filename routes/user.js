@@ -18,11 +18,13 @@ module.exports = function(app) {
           delete dbUser[0].dataValues.userType;
 
             //sorting each trip's locations by TripLocation.sequenceNumber
-            dbUser[0].Trips
-              .map((trip) => { return trip.Locations
-                .sort((locA, locB) =>
-                  { return locA.TripLocation.sequenceNumber - locB.TripLocation.sequenceNumber })
-              })
+            if(dbUser[0].Trips){
+              dbUser[0].Trips
+                .map((trip) => { return trip.Locations
+                  .sort((locA, locB) =>
+                    { return locA.TripLocation.sequenceNumber - locB.TripLocation.sequenceNumber })
+                })
+            }
 
           res.json(new ResponeObj(dbUser, " Success, see data for User information."))
         })

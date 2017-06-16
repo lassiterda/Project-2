@@ -6,23 +6,33 @@
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script> 
+  crossorigin="anonymous"></script>
 
   <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap4.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/profile-style.css">
   <link rel="stylesheet" type="text/css" href="/assets/css/accordion-style.css">
 
-  <!-- JavaScript Alertify -->
+<!--Sortable js Library  -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+
+  <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+
+  {{!-- for alertify --}}
+  <!-- JavaScript -->
   <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/alertify.min.css"/>
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/default.min.css"/>
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/semantic.min.css"/>
   <!-- Bootstrap theme -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.min.css"/>
 
-  <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
-  
-  <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
-  
 
 </head>
 <body>
@@ -30,23 +40,29 @@
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Main</a>
+				{{#if user}}
+					<li class="nav-item">
+						<a class="nav-link" href="/home">Main</a>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link" href="/profile">Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+				  <li class="nav-item">
+            <a class="nav-link" href="/user/logout">Logout</a>
           </li>
+				{{else}}
           <li class="nav-item">
             <a class="nav-link" href="/register">Register</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/user/logout">Logout</a>
+					<li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
           </li>
+				{{/if }}
         </ul>
       </nav>
       <h3 class="text-muted">WC</h3>
     </div>
-  
+
     <div class="row">
       <div class="col-lg-12">
         {{{body}}}
