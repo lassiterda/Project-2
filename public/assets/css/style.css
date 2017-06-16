@@ -22,13 +22,12 @@ body {
   margin-bottom: 0;
   line-height: 40px;
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 0;
 }
 .home-link {
   height: auto;
   width: 30px;
-  position: absolute;
   left: 0;
 }
 .home-link img {
