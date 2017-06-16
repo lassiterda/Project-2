@@ -323,10 +323,6 @@ function renderSideBarWithLocations(locations) {
         locationsGlobal.push($newLocation);
 
         //append the div we just constructed and popuated to the side bar
-
-        $(".my-side-bar").append(locationsGlobal[i].accordion.header);
-        $(".my-side-bar").append(locationsGlobal[i].accordion.body);
-
         $(".my-side-bar").append($newLocation.accordion.container);
         $(".my-side-bar").append($newLocation.accordion.body);
 
@@ -336,6 +332,7 @@ function renderSideBarWithLocations(locations) {
 }
 
 // populates
+
 function renderPins(map, locations) {
 
     for (i = 0; i < locations.data.length; i++) {
@@ -392,6 +389,7 @@ function addLocation() {
 }
 
 //remove unselected elements, then execute the callback
+
 function filterSelectedLocations(cb) {
 
     var $selected = $(".accordion").filter(function(idx, ele) {
