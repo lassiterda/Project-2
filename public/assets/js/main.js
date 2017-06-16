@@ -7,6 +7,9 @@
 	var locationsGlobal = [];
 	var myTripsGlobal = [];
 	var Arrmarkers = [];
+	var map;
+	var directionsDisplay;
+  var directionsService;
 
 $(document).ready(function(){
 
@@ -59,10 +62,16 @@ $(document).ready(function(){
 			filterSelectedLocations(function($selected) {
 
 				var list = document.getElementById("accordion");
-				Sortable.create(list);
+				Sortable.create(list, {
+					onSort: function(evt) {
+						filterSelectedLocations(function($selected){
+							renderTrip($selected)
+						})
+					}
+				});
 
 				clearMarkers();
-				renderTrip($selected, directionsService, directionsDisplay)
+				renderTrip($selected)
 			});
 		}
 
@@ -343,10 +352,10 @@ $(document).ready(function(){
 
 	}
 
-	function renderTrip(arrLocs, directionsService, directionsDisplay) {
+	function renderTrip(arrLocs) {
 
-    var origin = arrLocs.first()
-    var destination = arrLocs.last();
+    var orig = arrLocs.first()
+    var dest = arrLocs.last();
 		arrLocs.each(function(idx, ele) {
 			if ( idx === 0 || idx === arrLocs.length -1 ) {
 				arrLocs.splice(idx, 1)
@@ -354,11 +363,11 @@ $(document).ready(function(){
 		})
 
 		var request = {
-				origin: new google.maps.LatLng(origin.attr("lat"),origin.attr("lng")),
-			  destination: new google.maps.LatLng(destination.attr("lat"),destination.attr("lng")),
+				origin: { lat: parseFloat(orig.attr("lat")), lng: parseFloat(orig.attr("lng"))},
+			  destination: { lat: parseFloat(dest.attr("lat")), lng: parseFloat(dest.attr("lng"))},
 				waypoints: arrLocs.map(function(idx, ele){
-				  return { location: new google.maps.LatLng(ele.getAttribute("lat"), ele.getAttribute("lng")), stopover: true }
-				 }),
+				  return { location: {lat: parseFloat(ele.getAttribute("lat")), lng: parseFloat(ele.getAttribute("lng")) }, stopover: true }
+				}).toArray(),
 				travelMode: google.maps.TravelMode["WALKING"]
 		}
 
@@ -370,7 +379,6 @@ $(document).ready(function(){
 
 	}
 
-
 	function clearMarkers() {
 		setMapOnAll(null);
 	}
@@ -379,4 +387,8 @@ $(document).ready(function(){
 		for (var i = 0; i < Arrmarkers.length; i++) {
 			Arrmarkers[i].setMap(map);
 		}
+	}
+
+	function saveTrip(arrLocs){
+		
 	}
