@@ -2,44 +2,60 @@
 <head>
 	<title>App</title>
 
-  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap4.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="/assets/css/profile-style.css">
   {{!-- jQuery --}}
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
 
+  <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap4.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/profile-style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/accordion-style.css">
+
+<!--Sortable js Library  -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+
   <!-- JavaScript Alertify -->
   <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
 
   <!-- Bootstrap theme -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.min.css"/>
-  
+
+  <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+
+  <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
+
+
 </head>
 <body>
   <div class="container">
     <div class="header clearfix">
       <nav class="center-contents-vert">
         <ul class="nav nav-pills float-right">
-          <li class="nav-item">
-            <a class="nav-link center-contents-vert" href="/">Main</a>
+				{{#if user}}
+					<li class="nav-item">
+						<a class="nav-link center-contents-vert" href="/home">Main</a>
+					</li>
+					<li class="nav-item">
+            <a class="nav-link center-contents-vert" href="/profile">Profile</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link center-contents-vert" href="/login">Login</a>
+				  <li class="nav-item">
+            <a class="nav-link" href="/user/logout">Logout</a>
           </li>
+				{{else}}
           <li class="nav-item">
             <a class="nav-link center-contents-vert" href="/register">Register</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link center-contents-vert" href="/user/logout">Logout</a>
+					<li class="nav-item">
+            <a class="nav-linkcenter-contents-vert" href="/login">Login</a>
           </li>
+				{{/if }}
         </ul>
       </nav>
       <h3 class="text-muted center-contents-vert logo"><a href="/" class="home-link"><img src="images/logo.png" alt="logo" /></a></h3>
     </div>
-    <!--<a href="#" class="navbar-left"><img src="https://sp.yimg.com/ib/th?id=OIP.KP2WTO-NKvP6Y4xmk85LxgDsC3&pid=15.1&rs=1&c=1&qlt=95&w=152&h=118"></a> -->
+
     <div class="row">
       <div class="col-lg-12 no-padding">
         {{{body}}}
@@ -50,9 +66,6 @@
     </footer>
 
   </div> <!-- /container -->
-
-
-  <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
 
 </body>
 </html>

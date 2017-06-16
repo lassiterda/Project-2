@@ -6,12 +6,14 @@
             {{!-- This side bar div will be populated dynamically. --}}
         </div>
         <div class="scroll-indicator center-contents-vert col-sm-12 col-md-5 col-lg-3">&xdtri;</div>
+
+
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 map-menu">
             <div class="btn-group map-buttons"  role="group" aria-label="Basic example">
                 <button type="button" class="btn btn-primary" id="add-location-btn" data-toggle="modal" data-target="add-location-modal">Add Location</button>
-                <button type="button" class="btn btn-info">Build Trip</button>
+                <button type="button" class="btn btn-info" id="build-trip-btn">Build Trip</button>
                 <button type="button" class="btn btn-primary" id="my-trips-btn" disabled>My Trips</button>
             </div>
             <div class="col-sm-7 offset-sm-3 scroll-top-wrapper">
@@ -19,30 +21,31 @@
             </div>
         </div>
     </div>
-    </div>
-    {{!--Pop up to display location data--}}
-    <div class="row locations-div">
-        <div class="col-sm-12">
-        </div>
-    </div>
-        {{!--Pop up to display trips data--}}
-        <div class="row trips-div">
-        <div class="col-sm-12">
-        </div>
+</div>
+{{!--Pop up to display location data--}}
+<div class="row locations-div">
+    <div class="col-sm-12">
     </div>
 </div>
+{{!--Pop up to display trips data--}}
+<div class="row trips-div">
+    <div class="col-sm-12">
+    </div>
+</div>
+</div>
 
-{{!-- code for modal --}}
-<div class="modal modal-fade" id="add-location-modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Location</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-            </div>
-            <div class="modal-body">
+<div id="modal 1">
+    {{!-- code for add-location modal --}}
+    <div class="modal modal-fade" id="add-location-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
                 <div class="form-group row">
                     <label for="example-text-input" class="col-2 col-form-label">Name</label>
                     <div class="col-10">
@@ -73,14 +76,55 @@
                         <input class="form-control" type="tel" value="28202" id="zip-input">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="example-tel-input" class="col-2 col-form-label">Description</label>
+                    <div class="col-10">
+                        <input class="form-control" type="tel" value="Description..." id="description-input">
+                    </div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="submit-location">Submit</button>
+                    <button type="button" class="btn btn-primary" id="submit-location" action="post">Submit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div> {{!-- end of modal --}}
+</div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk" async defer></script> 
+
+<div id='modal-2'>
+    {{!-- build trip modal --}}
+    <div class="modal modal-fade" id="save-trip-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Save Trip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group row">
+                    <label for="example-text-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                        <input class="form-control" type="text" value="Latta Arcade" id="trip-name-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="trip-desc-input" class="col-2 col-form-label">Description</label>
+                    <div class="col-10">
+                        <textarea class="form-control" id="trip-desc-input" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-trip" action="post">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/assets/js/main.js"></script>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJcZ1QEqadlm9GhGA00nnGwpCI4D9-bk"async defer></script>
+<script type="text/javascript" src="/assets/js/accordion.js"></script>

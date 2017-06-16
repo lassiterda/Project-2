@@ -5,7 +5,7 @@ $(document).ready(function(){
 		event.preventDefault();
 
 		var userLoginInfo = {
-			userName: $('#userName').val().trim(),
+			username: $('#userName').val().trim(),
 			password: $('#password').val().trim()
 		}
 
