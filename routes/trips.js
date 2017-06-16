@@ -14,7 +14,7 @@ const checkAuthenticated = function(req, res, next){
 module.exports = function(app) {
 
   //get one or all trips, including location information for each route.
-  app.get("/api/trip/:id?", function(req,res){
+  app.get("/api/trip/:id?", checkAuthenticated, function(req,res){
 
     let query = req.params.id ?
       {where: { id : req.params.id }, include: [ {model: db.Location,   through: {} } ] } :
@@ -27,8 +27,7 @@ module.exports = function(app) {
   })
 
 
-  app.post("/api/trip/create", function(req,res) {
-
+  app.post("/api/trip/create", checkAuthenticated, function(req,res) {
     //create the trip based ont the req.body
     db.Trip.create(req.body)
       .then(dbTrip => {
@@ -52,7 +51,7 @@ module.exports = function(app) {
   });
 
 
-  app.post("/api/trip/delete/:id", function(req, res){
+  app.post("/api/trip/delete/:id", checkAuthenticated, function(req, res){
 
     db.Trip.destroy( { where: { id: req.params.id } })
       .then(dbTripId => { res.json(new ResponeObj(dbTripId, "Success, Trip deleted.")) })
