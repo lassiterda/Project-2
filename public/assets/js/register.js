@@ -9,27 +9,36 @@ $(document).ready(function(){
 			lastName: $("#last-name").val().trim(),
 			userName: $("#username").val().trim(),
 			password: $("#password").val().trim(),
-			zip: $("#zip").val().trim(),
+			confirmPass: $("#confirm-password").val().trim(),
 			email: $("#email").val().trim()
 		}
 
-		console.log(newUser);
+		// console.log(newUser);
 
-		//create new user by posting it to server
-		$.post("/user/register", newUser)
-		.done(function(response) {
+		if(newUser.password === newUser.confirmPass){
 
-			$("#first-name").val('');
-			$("#last-name").val('');
-			$("#username").val('');
+			//create new user by posting it to server
+			$.post("/user/register", newUser)
+			.done(function(response) {
+
+				$("#first-name").val('');
+				$("#last-name").val('');
+				$("#username").val('');
+				$("#password").val('');
+				$("#confirm-password").val('');
+				$("#email").val('');
+
+				console.log(response);
+				window.location = '/home';
+			});
+
+			console.log("Passwords match, new user created");
+
+		}else{
 			$("#password").val('');
-			$("#zip").val('');
-			$("#email").val('');
-
-			console.log(response);
-			window.location = '/home';
-
-		});
+			$("#confirm-password").val('');
+			alertify.warning('Passwords do not match, please try again');
+		}
 
 		
 	})
