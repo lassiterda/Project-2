@@ -43,9 +43,15 @@ body {
 
 /* Custom page footer */
 .footer {
+  width: 100%
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+.footer p {
+  padding-top: 15px;
 }
 
 .container-narrow > hr {
