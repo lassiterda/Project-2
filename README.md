@@ -1,4 +1,5 @@
-![walkaboutlogo_3](https://user-images.githubusercontent.com/24939906/27249430-60d011d0-52e3-11e7-8fda-30a27b0ac97f.png)
+<span style="text-align: center;">![webp net-resizeimage](https://user-images.githubusercontent.com/24939906/27249464-2160c87c-52e4-11e7-99da-9b8c3acf3313.png)
+</span>
 # Walkabout Charlotte
 
 ## Installation
