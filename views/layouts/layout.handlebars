@@ -1,7 +1,7 @@
 <html>
 <head>
-	<title>App</title>
-
+	<title>WalkaboutCLT</title>
+	<link rel="icon" href="/assets/images/favicon.ico" type="image/ico" />
   {{!-- jQuery --}}
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -16,20 +16,27 @@
 <!--Sortable js Library  -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
 
-  <!-- JavaScript Alertify -->
-  <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
-
-  <!-- Bootstrap theme -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.min.css"/>
-
   <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
 
   <script type="text/javascript" src="/assets/js/bootstrap.js"></script>
 
+  {{!-- for alertify --}}
+  <!-- JavaScript -->
+  <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/alertify.min.css"/>
+  <!-- Default theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/default.min.css"/>
+  <!-- Semantic UI theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/semantic.min.css"/>
+  <!-- Bootstrap theme -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.min.css"/>
 
 </head>
 <body>
-  <div class="container">
+  <div class="">
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
@@ -57,15 +64,15 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 no-padding">
         {{{body}}}
     </div>
 
-    <footer class="footer">
-      <p>&copy; 2017 Walkabout Charlotte </p>
-    </footer>
+
 
   </div> <!-- /container -->
-
+    <footer class="footer navbar-fixed-bottom">
+      <p>&copy; 2017 Walkabout Charlotte </p>
+    </footer>
 </body>
 </html>
