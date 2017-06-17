@@ -8,9 +8,7 @@ body {
   padding-right: 15px;
   padding-left: 15px;
 }
-.user-form {
-  margin-top: 20px;
-}
+
 /* Custom page header */
 .header {
   border-bottom: 1px solid #e5e5e5;
@@ -36,7 +34,20 @@ body {
   max-width: 100%;
   height: auto;
 }
-
+/*.nav {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.nav li {
+  flex-basis: 40%;
+  text-align: right;
+}
+.logo {
+  background-image: url(http://imgur.com/a/cxn2Q);
+}*/
 nav {
   width: 100%;
   height: 50px;
@@ -71,15 +82,9 @@ nav {
 }
 /* Custom page footer */
 .footer {
-  width: 100%
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
-  text-align: center;
-}
-
-.footer p {
-  padding-top: 15px;
 }
 
 .container-narrow > hr {
@@ -109,7 +114,23 @@ nav {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+@-webkit-keyframes grow {
+  0% {
+    background-size: auto 100%;
+  }
+  100%  {
+    background-size: auto 105%;
+  }
+}
 
+@keyframes grow {
+  0% {
+    background-size: auto 100%;
+  }
+  100%  {
+    background-size: auto 105%;
+  }
+}
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
@@ -186,23 +207,12 @@ footer {
   border-radius: 2px;
 }
 
-.map-wrapper {
-  padding: 0 20px;
-}
-
 .my-side-bar {
   height: 70%;
   width: 40%;
   margin-bottom: 20px;
   /*border: solid 1px black;*/
   background-color: lightgrey;
-  overflow: auto;
-  padding: 0px;
-}
-
-.location-box {
-  /*width: 100% !important;*/
-  min-height: 85px;
   overflow-x: auto;
   overflow-y: scroll;
   padding: 0px;
@@ -223,31 +233,14 @@ footer {
 
 /*.location-box {
   height: 85px;
->>>>>>> bugs/merge
   border: solid 1px black;
-  padding: 5px;
+  padding: 10px;
   text-align: center;
   font-size: 13px;
-<<<<<<< HEAD
-  background-color: #bbb;
-  transition: 200ms;
-  cursor: pointer;
-}
-=======
->>>>>>> bugs/merge
 
 }*/
 
-/*<<<<<<< HEAD
-.location-box-active {
-  color: #b3b3b3;
-  padding: 5px;
-  text-align: center;
-  font-size: 13px;
-  background-color: #1565c0;
-}
-=======
-*/
+
 /*.location-box:active {
   height: 85px;
   border: solid 1px black;
@@ -256,8 +249,7 @@ footer {
   font-size: 13px;
   background-color: blue;
 }*/
-/*>>>>>>> bugs/merge
-*/
+
 
 .trip-box {
   /*width: 100% !important;*/
@@ -271,8 +263,6 @@ footer {
 .trip-selector {
   float: right;
 }
-/*<<<<<<< HEAD
-=======*/
 .scroll-top-wrapper {
   padding: 0;
   height: 60px;
@@ -330,9 +320,13 @@ footer {
   .jumbotron h1 {
     font-size: 32px;
   }
-    .triptych div {
-    padding-left: 40px;
-    padding-right: 40px;
+}
+
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 90%;
   }
 }
 
@@ -344,9 +338,6 @@ footer {
   .footer {
     padding-right: 0;
     padding-left: 0;
-  }
-  .container {
-    max-width: 90%;
   }
     .home-link {
       
@@ -370,6 +361,10 @@ footer {
   .map-buttons button {
     flex-basis: 33%;
     width: 33%;
+  }
+    .triptych div {
+    padding-left: 20px;
+    padding-right: 20px;
   }
   #chevron-icon{
     display: none;
@@ -419,6 +414,14 @@ footer {
   .triptych div {
     padding-right: 15px;
     padding-left: 15px;
+  }
+
+  .triptych div:first-child {
+    padding-left: 0;
+  }
+
+  .triptych div:last-child {
+    padding-right: 0;
   }
 
   #chevron-icon{
