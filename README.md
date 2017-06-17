@@ -15,9 +15,6 @@ Add locations of interest to a database
 Map of directions between points of interest
 Log trips to plan an agenda
 
-
-## Usage
-
 ## Contributing
     1. Fork the repository
     2. Create your feature branch: `git checkout -b my-new-feature`
@@ -26,21 +23,20 @@ Log trips to plan an agenda
     5. Submit a pull request :D
 
 ## Built With
-  Bootstrap 4
-  jQuery
-  Node
-  MySQL
-  Express
-  Handlebars
-  Sequelize
+**Bootstrap 4**
+**jQuery**
+**Node**
+**MySQL**
+**Express**
+**Handlebars**
+**Sequelize**
 
-  Passport - Authentication
-  bcryptjs - password salt/hash
-  express-session - User sessions
-  Sortable js - Sortable Lists
+**Passport** - Authentication
+**bcryptjs** - password salt/hash
+**express-session**  - User sessions
+**Sortable js** - Sortable Lists
 
 ## Upcoming Features
-
 ### Now
 -'Featured Trips' to jump start use.
 -Social Sharing of Trips
