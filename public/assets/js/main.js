@@ -243,7 +243,7 @@ function renderSideBarWithTrips(apiTrips) {
               }
           };
 
-          $newTrip.accordion.header.append("<a href='#' class='location-render'>" + apiTrips[i].name + "</a>");
+          $newTrip.accordion.header.append("<a href='#' class='location-render'>" + apiTrips[i].name + "</a>").append("<p> Locations: " + apiTrips[i].length +  "/p>");
           $newTrip.accordion.header.append($newTrip.accordion.selectAdd);
 
           //could this be a for each...? or jQuery .each()?
@@ -310,7 +310,7 @@ function renderSideBarWithLocations(locations) {
         $newLocation.accordion.body.addClass('panel');
 
         $newLocation.accordion.header.append("<a href='#' class='accordion-expand'>" + locations.data[i].name + "</a>");
-        $newLocation.accordion.body.append('<p>' + locations.data[i].description + '</p>');
+        $newLocation.accordion.body.append("<p class='location-address'>"+ $newLocation.about.address.street + "</p>").append('<p>' + locations.data[i].description + '</p>');
         $newLocation.accordion.container.append($newLocation.accordion.header)
         $newLocation.accordion.container.append($newLocation.accordion.panel)
         $newLocation.accordion.header.append($newLocation.accordion.selectAdd)
@@ -362,8 +362,7 @@ function addLocation() {
 
             name: $('#location-name-input').val().trim(),
             address: $('#address-input').val().trim(),
-            city: $('#city-input').val().trim(),
-            state: $('#state-input').val().trim(),
+            category: $("#category-input").val().trim(),
             zip: $('#zip-input').val().trim(),
             description: $('#description-input').val().trim()
 
