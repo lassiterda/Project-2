@@ -23,18 +23,18 @@ Log trips to plan an agenda
     5. Submit a pull request :D
 
 ## Built With
-**Bootstrap 4**
-**jQuery**
-**Node**
-**MySQL**
-**Express**
-**Handlebars**
-**Sequelize**
+**-Bootstrap 4**
+**-jQuery**
+**-Node**
+**-MySQL**
+**-Express**
+**-Handlebars**
+**-Sequelize**
 
-**Passport** - Authentication
-**bcryptjs** - password salt/hash
-**express-session**  - User sessions
-**Sortable js** - Sortable Lists
+**-Passport** - Authentication
+**-bcryptjs** - password salt/hash
+**-express-session**  - User sessions
+**-Sortable js** - Sortable Lists
 
 ## Upcoming Features
 ### Now
