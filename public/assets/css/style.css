@@ -1,10 +1,8 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 0 15px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
+.pad-sides,
 .marketing,
 .footer {
   padding-right: 15px;
@@ -13,9 +11,10 @@ body {
 
 /* Custom page header */
 .header {
-  padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
   position: relative;
+  padding: 20px 0;
+  width: 100%;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -23,10 +22,19 @@ body {
   margin-bottom: 0;
   line-height: 40px;
   position: absolute;
-  top: 0;
+  top: 15px;
   left: 0;
 }
-.nav {
+.home-link {
+  height: auto;
+  width: 30px;
+  left: 0;
+}
+.home-link img {
+  max-width: 100%;
+  height: auto;
+}
+/*.nav {
   width: 100%;
   max-width: 100%;
   display: flex;
@@ -39,19 +47,44 @@ body {
 }
 .logo {
   background-image: url(http://imgur.com/a/cxn2Q);
+}*/
+nav {
+  width: 100%;
+  height: 50px;
 }
 
+.nav {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 15%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.nav li {
+  -ms-flex-preferred-size: 15%;
+      flex-basis: 15%;
+  font-size: 14px;
+  text-align: right;
+  height: 100%;
+}
+
+.nav li a {
+  height: 100%;
+  padding: 8px;
+}
 /* Custom page footer */
 .footer {
-  width: 100%
   padding-top: 19px;
   color: #777;
   border-top: 1px solid #e5e5e5;
-  text-align: center;
-}
-
-.footer p {
-  padding-top: 15px;
 }
 
 .container-narrow > hr {
@@ -60,12 +93,43 @@ body {
 
 /* Main marketing message and sign up button */
 .jumbotron {
+-webkit-filter: grayscale(25%) saturate(90%);
+          filter: grayscale(25%) saturate(90%);
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
   background-image: url('../images/clt_skyline.jpg') !important;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   color: white;
+  padding: 60px 30px;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.jumbotron.hovered {
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+@-webkit-keyframes grow {
+  0% {
+    background-size: auto 100%;
+  }
+  100%  {
+    background-size: auto 105%;
+  }
+}
+
+@keyframes grow {
+  0% {
+    background-size: auto 100%;
+  }
+  100%  {
+    background-size: auto 105%;
+  }
 }
 .jumbotron .btn {
   padding: 14px 24px;
@@ -73,9 +137,25 @@ body {
 }
 
 .jumbotron h1 {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 25px;
+    margin-top: 15px;
 }
 
+.jumbotron p {
+  width: 84%;
+  margin-left: 8%;
+  margin-bottom: 30px;
+}
+
+.triptych {
+  padding: 0 20px;
+  max-width: 100%;
+}
+
+.triptych div {
+  margin-bottom: 20px;
+}
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;
@@ -86,6 +166,10 @@ body {
 
 footer {
   margin-top: 40px;
+  width: 100%;
+  text-align: right;
+  padding-right: 10px;
+  font-size: 13px;
 }
 
 .page-header{
@@ -100,14 +184,27 @@ footer {
 .stack {
   width: 100%;
 }
-.map-buttons {
-  flex-wrap: wrap;
-  display: flex;
+.map-menu {
+  padding: 0 10px 0 15px;
 }
+
+.map-buttons {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 0 0 0;
+}
+
 .map-buttons button {
-  flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
   width:100%;
   display: inline-block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 2px;
 }
 
 .my-side-bar {
@@ -166,6 +263,65 @@ footer {
 .trip-selector {
   float: right;
 }
+.scroll-top-wrapper {
+  padding: 0;
+  height: 60px;
+  padding: 5px 0 0;
+}
+
+#chevron-icon {
+  display: block;
+  width: 100%;
+  height: 40px;
+  background-image: url('/assets/icons/arrows/chevrons-up.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: auto 60%;
+  border-radius: 2px;
+}
+
+.no-padding {
+  padding: 0 0 0 0;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+.center-contents-vert {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (min-width: 370px) {
+  .home-link {
+    width: 60px;
+  }
+  .nav li a {
+    padding: 0.5em 1em;
+  }
+}
+
+@media screen and (min-width: 576px) {
+  #chevron-icon {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .jumbotron h1 {
+    font-size: 32px;
+  }
+}
+
 
 /* Customize container */
 @media (min-width: 768px) {
@@ -183,6 +339,10 @@ footer {
     padding-right: 0;
     padding-left: 0;
   }
+    .home-link {
+      
+      width: 100px;
+    }
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
@@ -202,6 +362,16 @@ footer {
     flex-basis: 33%;
     width: 33%;
   }
+    .triptych div {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #chevron-icon{
+    display: none;
+    margin-top: 2px;
+    text-align: center;
+    width:100%;
+  }
   #chevron-icon{
     display: none;
     margin-top: 2px;
@@ -216,23 +386,59 @@ footer {
     width: 100%;
   }
 
+
+  body {
+    width: 100%;
+  }
+
   .container {
     width: 100%;
   }
 }
 /* For Desktop */
 @media screen and (min-width: 992px) {
+  .nav li {
+    -ms-flex-preferred-size: 15%;
+        flex-basis: 15%;
+  }
+
+  .jumbotron .lead {
+    width: 60%;
+    margin: 40px 20%;
+  }
+
+  .triptych {
+    margin-top: 40px;
+  }
+
+  .triptych div {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .triptych div:first-child {
+    padding-left: 0;
+  }
+
+  .triptych div:last-child {
+    padding-right: 0;
+  }
+
   #chevron-icon{
     display: none;
     margin-top: 2px;
     text-align: center;
   }
 
-  body {
-    width: 100%;
+  .container {
+    max-width: 960px;
+  }
+
+  .footer {
+    padding-top: 30px;
+    padding-bottom: 10px;
   }
 }
-
 /*TO CHANGE MODAL BACKGROUND OPACITY*/
 .modal-backdrop {
   opacity: 0.5 !important;

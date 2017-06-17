@@ -27,6 +27,7 @@ const app = express();
 
   //mounting static assets middleware
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/images', express.static(path.join(__dirname, 'public/assets/images')));
 
   //Mounting express-session
   app.use(session({

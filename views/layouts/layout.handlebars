@@ -23,6 +23,7 @@
   {{!-- for alertify --}}
   <!-- JavaScript -->
   <script src="//cdn.jsdelivr.net/alertifyjs/1.10.0/alertify.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.6.0/Sortable.min.js"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/alertify.min.css"/>
@@ -33,10 +34,9 @@
   <!-- Bootstrap theme -->
   <link rel="stylesheet" href="//cdn.jsdelivr.net/alertifyjs/1.10.0/css/themes/bootstrap.min.css"/>
 
-
 </head>
 <body>
-  <div class="container">
+  <div class="">
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills float-right">
@@ -60,11 +60,11 @@
 				{{/if }}
         </ul>
       </nav>
-      <h3 class="text-muted">WC</h3>
+      <h3 class="text-muted center-contents-vert logo"><a href="/" class="home-link"><img src="images/logo.png" alt="logo" /></a></h3>
     </div>
 
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-12 no-padding">
         {{{body}}}
     </div>
 

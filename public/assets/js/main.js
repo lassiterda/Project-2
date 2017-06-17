@@ -1,3 +1,193 @@
+
+// ar locationsGlobal = [];
+
+// $(document).ready(function(){
+
+// 	// =============== Program Logic ===============
+
+// 	//we're declaring a global array to hold locations data
+// 	//so that we may access it from anywhere in the program
+// 	//without running into scoping issues
+
+// 	//initializes home page
+// 	initHome();
+
+// 	//it is assumed that if this click event triggers, the btn is not disabled anymore
+// 	$("#my-trips-btn").on("click", function() {
+
+// 		//prevents the element's default behavior from triggering
+// 		event.preventDefault();
+
+// 		var btn = $("#my-trips-btn");
+
+// 		//if the button reads "My Trips" re-render side bar and change its text to "Locations"
+// 		if(btn.text() === "My Trips"){
+
+// 			//makes the AJAX call and calls the functions that renders side bar with trips data
+// 			getMyTrips();
+// 			btn.text('Locations');
+
+// 		} //otherwise do the opposite
+// 		else if(btn.text() === "Locations"){
+// 			//makes the AJAX call and calls the functions that renders side bar with locations data
+// 			getLocations();
+// 			btn.text("My Trips");
+// 		}
+
+// 	});//end of click-event
+
+// 	$('.location-box').on('click', function() {
+
+// 		$('this').removeClass('location-box');
+// 		$('this').addClass('location-box-active');
+// 	});//end of click-event
+
+// 	$('#add-location-btn').on('click', function() {
+
+// 		//prevents the element's default behavior from triggering
+// 		event.preventDefault();
+// 		addLocation();
+// 	});//end of click-event
+
+// 	// $('#build-trip-btn').on('click', function() {
+// 	//
+// 	// 	//prevents the element's default behavior from triggering
+// 	// 	event.preventDefault();
+// 	//
+// 	// 	snatchSelectedLocations();
+// 	//
+// 	//
+// 	//
+// 	//
+// 	// });//end of click-event
+// $("#build-trip-btn").click(function(){
+
+//   //check to see if text says buid trips
+
+//   var removedIds = [];
+
+//   //remove all nonselected elements
+// 	$(".location-box").each(function(idx, ele) {
+// 		console.log(!$(ele).hasClass("location-box-active"));
+// 		if (!$(ele).hasClass("location-box-active")) {
+
+// 			locationsGlobal =locationsGlobal.filter(function(loc) {
+// 				return loc.about.id != $(ele).attr("location-id")
+// 			})
+// 			$(this).fadeOut("fast", function(){
+
+// 				$(this).remove();
+// 			})
+// 		}
+// 		else {
+// 			$(this).off()
+// 		}
+// 	})
+
+//   // make remaining elements sortable
+//   Sortable.create(document.getElementById("side-bar"));
+
+//   clearMarkers();
+
+//   //can this be done on initHome(), or would it conflict with base `map`?
+//   calcRoute(locationsGlobal, function(response) {
+//     console.log(response);
+//   })
+
+// })
+
+// 	// =============== End of Program Logic ===============
+
+// 	// *****************************************************
+
+// 	// =============== FUNCTIONS ===============
+
+// 	function initHome() {
+
+// 		//enables My Trips button is there is at least one trip in database
+// 		areThereTrips();
+
+// 		var currentURL = window.location.origin;
+
+// 		//API call to the server to retrieve locations data
+// 		$.get(currentURL + "/api/location")
+// 		.done(function(data) {
+
+// 			console.log(data);
+
+// 			initMap(data);
+
+// 			//initMap(data);
+
+// 			//here we have our locations data from the API
+// 			//now we have to render map, render pins, and render side bar
+// 			//|-> initHome()
+// 				//|-> areThereTrips();
+// 				//|-> AJAX Call
+// 					//|-> initMap(data)
+// 						//|-> renderPins(data);
+// 			renderSideBarWithLocations(data);
+
+// 		});
+
+// 	}//end of initHome
+
+// 	function initMap(data) {
+
+// 		//coordinates and settings for Charlotte Map
+// 		const Charlotte = {
+// 			center: {lat: 35.22, lng: -80.84},
+// 			scrollwheel: false,
+// 			zoom: 13
+// 		}
+
+// 		//map
+// 		map = new google.maps.Map(document.getElementById('map-location'), Charlotte);
+// 	    directionsDisplay = new google.maps.DirectionsRenderer();
+// 	    directionsService = new google.maps.DirectionsService();
+// 	    directionsDisplay.setMap(map);
+// 		renderPins(map, data);
+
+// 	}//end of initMap
+
+// 	//returns nothing. used to disable or disable My Trips button
+// 	function areThereTrips() {
+
+// 		//remove this line once AJAX call works
+// 		$("#my-trips-btn").prop("disabled", false);
+
+// 		// $.get("/api/trips")
+// 		// .done(function(data) {
+
+// 		// 	// console.log("Trips data: " + data);
+// 		// 	//if at least one trip, set disabled to false
+// 		// 	//else, set disabled to true , or do nothing since default is disabled
+// 		// 	if(true){
+// 		// 		$("#my-trips-btn").prop("disabled", false);
+// 		// 	}
+
+// 		// })
+
+// 	}//end of areThereTrips
+
+// 	//retrieves user trips from database
+// 	function getMyTrips() {
+
+// 		//get all trips info
+// 		$.get("/api/trips")
+// 		.done(function(data) {
+
+// 			//here we will clear and
+// 			//re-render the side bar
+// 			$("#side-bar").empty();
+
+// 			//this function will take care of the task.
+// 			//we have yet to write it, but we'll recycle
+// 			//and tweak the code of the renderSideBarWithLocations function
+// 			renderSideBarWithTrips(data);
+
+// 		})
+// =======
 //When the document is ready, the following code will run
 // =============== Program Logic ===============
 //we're declaring a global array to hold locations data
@@ -16,8 +206,7 @@ $(document).ready(function() {
     initHome();
 
     //it is assumed that if this click event triggers, the btn is not disabled anymore
-    $("#my-trips-btn").on("click", function() {
-
+    $("#my-trips-btn").on("click", function(event) {
         //prevents the element's default behavior from triggering
         event.preventDefault();
 
@@ -92,7 +281,6 @@ $(document).ready(function() {
             });
         }
 
-
     }); //end of click-event
 
     $("#submit-trip").on("click", function() {
@@ -109,12 +297,15 @@ $(document).ready(function() {
 
         console.log(request);
 
+		// renderSideBarWithLocations(data);
+
         $.post("/api/trip/create", request)
             .done(function(response) {
                 window.location.reload();
-            })
-    })
+            });
 
+	});
+        
     $(document).on("click", ".location-render", function(event) {
       event.preventDefault();
       clearMarkers();
@@ -123,9 +314,9 @@ $(document).ready(function() {
       var matchingTrip = myTripsGlobal.filter(function(trip){ return trip.id === tripId})[0]
 
       renderTrip(matchingTrip.Locations)
-    })
+    });
     // =============== End of Program Logic ===============
-}) //end of document.ready
+}); //end of document.ready
 
 // =============== FUNCTIONS ===============
 
@@ -331,20 +522,50 @@ function renderSideBarWithLocations(locations) {
 
 }
 
-function renderPins(map, locations) {
+// function renderPins(map, locations) {
 
-    for (i = 0; i < locations.data.length; i++) {
+//     for (i = 0; i < locations.data.length; i++) {
+//         var position = new google.maps.LatLng(locations.data[i].lat, locations.data[i].lng);
+
+// <<<<<<< HEAD
+// 			$newLocation.box.append("<h6>"+ locations.data[i].name + "</h6>");
+// 			$newLocation.box.append("<p>Address: " + locations.data[i].address + "</p>");
+// 			$newLocation.box.click(function() {
+// 				if ($(this).hasClass("location-box-active") ) {
+// 					$(this).removeClass('location-box-active');
+// 				}
+// 				else {
+// 					$(this).addClass('location-box-active');
+// 				}
+// 			})
+
+// =======
+//         marker = new google.maps.Marker({
+//             position: position,
+//             map: map,
+//             animation: google.maps.Animation.DROP,
+//             title: locations.data[i].name
+//         });
+//         Arrmarkers.push(marker)
+//     }
+// >>>>>>> bugs/merge
+
+// }
+
+function renderPins(map, locations) {
+    Arrmarkers = []
+    for(i = 0; i < locations.data.length; i++) {
         var position = new google.maps.LatLng(locations.data[i].lat, locations.data[i].lng);
 
-        marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            animation: google.maps.Animation.DROP,
-            title: locations.data[i].name
-        });
-        Arrmarkers.push(marker)
+                marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    title: locations.data[i].name
+                });
+                Arrmarkers.push(marker);
+    
     }
-
 }
 
 function addLocation() {
@@ -353,41 +574,39 @@ function addLocation() {
 
     $('#add-location-modal').modal('toggle');
 
-    $(document).on('click', '#submit-location', function() {
+    $(document).on('click', '#submit-location', function(event) {
 
         event.preventDefault();
         console.log('clicked');
 
         var newLocation = {
 
-            name: $('#location-name-input').val().trim(),
-            address: $('#address-input').val().trim(),
-            category: $("#category-input").val().trim(),
-            zip: $('#zip-input').val().trim(),
-            description: $('#description-input').val().trim()
+                name: $('#location-name-input').val().trim(),
+                address: $('#address-input').val().trim(),
+                category: $("#category-input").val().trim(),
+                zip: $('#zip-input').val().trim(),
+                description: $('#description-input').val().trim()
 
-        }
+            };
 
-        $.post('/api/location/create', newLocation)
-            .done(function(response) {
+            $.post('/api/location/create', newLocation)
+                .done(function(response) {
 
-                console.log("Location successfully added!");
-                console.log(response);
-                $('#add-location-modal').modal('hide');
-                initHome();
+                    console.log("Location successfully added!");
+                    console.log(response);
+                    $('#add-location-modal').modal('hide');
+                    initHome();
 
-            });
+                });
 
-        // alertify.success("Location successfully added!");
 
-    })
-
+    });
 
 }
 
+
 //remove unselected elements, then execute the callback
 function filterSelectedLocations(cb) {
-
     var $selected = $(".accordion").filter(function(idx, ele) {
         if ($(ele).hasClass('location-selected')) {
             return true
@@ -397,11 +616,54 @@ function filterSelectedLocations(cb) {
             })
             return false
         }
-    })
+    });
 
     cb($selected)
-
 }
+
+function snatchSelectedLocations() {
+
+	let tripDirections = [];
+
+	for (var i = 0; i < locationsGlobal.length; i++) {
+
+		if(locationsGlobal[i].isSelected === true){
+
+			tripDirections.push(locationsGlobal[i]);
+
+		}
+
+	};//end of for loop
+
+	renderTrip(tripDirections);
+
+
+}//end of snatchSelectedLocations
+
+function calcRoute(arrLocs, cb) {
+    var origin = arrLocs.shift()
+    var destination = arrLocs.pop();
+
+    var request = {
+        origin: {lat:origin.about.lat, lng: origin.about.lng},
+        destination: {lat: destination.about.lat, lng: destination.about.lng},
+        waypoints: arrLocs.map(function(ele){
+          return { location: {lat: ele.about.lat, lng: ele.about.lng }, stopover: true }
+        }),
+        travelMode: google.maps.TravelMode["WALKING"]
+    }
+
+    directionsService.route(request, function(response, status) {
+        if(status == "OK") {
+            directionsDisplay.setDirections(response);
+            cb(response)
+    }});
+}
+
+	// =============== END OF FUNCTIONS ===============
+
+//end of document.ready
+    
 
 function renderTrip(arrLocs) {
   //if arrlocs is Jquery 'array'
