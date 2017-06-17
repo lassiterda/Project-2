@@ -7,7 +7,7 @@ module.exports = function(app) {
 
   //get one location or all locations (sorted by numlikes)
   app.get("/api/location/:id?", function(req,res){
-    
+
     //build query depending on whether an id is provided
     let query = req.params.id ?
     { where: { id : req.params.id } } :
@@ -47,7 +47,6 @@ module.exports = function(app) {
     .catch(err => { res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err)) })
   })
 
-
   //Like a location based on id
   app.post("/api/location/like/:id", function(req, res) {
 
@@ -61,7 +60,9 @@ module.exports = function(app) {
   //creates new location
   app.post("/api/location/create", function(req, res){
     let body = req.body;
-    console.log(body.address + " " + body.city + ", " + body.state);
+    body.city = "Charlotte";
+    body.state = "NC"
+    console.log(body);
     //retreive lat, lng, and Google_place_id fro Google Geocaching API.
     rp.get({
       uri: "http://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(body.address + " " + body.city + ", " + body.state),
@@ -73,7 +74,6 @@ module.exports = function(app) {
         //adding lat, lng to the request object to pass into db.
         req.body.lat = respObj.results[0].geometry.location.lat;
         req.body.lng = respObj.results[0].geometry.location.lng;
-
         db.Location.create(body)
         .then(dbLocation => { res.json(new ResponeObj(dbLocation.dataValues, "Success, Location created.")) })
         .catch(err => { res.json(new ResponeObj(null, "Something went wrong, see error message for details.", err)) })
