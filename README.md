@@ -31,10 +31,10 @@ Log trips to plan an agenda
 **Handlebars,**
 **Sequelize,**
 
-**Passport**
-**bcryptjs**
-**express-session**
-**Sortable js**
+**Passport,**
+**bcryptjs,**
+**express-session,**
+**Sortable js,**
 
 ## Upcoming Features
 ### Now
