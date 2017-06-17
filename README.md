@@ -9,11 +9,11 @@
     In your dev console use the command `node server`
 
 ## Main Features
-  View locations of interest in the city of Charlotte
-  User sign in and authentication
-  Add locations of interest to a database
-  Map of directions between points of interest
-  Log trips to plan an agenda
+View locations of interest in the city of Charlotte
+User sign in and authentication
+Add locations of interest to a database
+Map of directions between points of interest
+Log trips to plan an agenda
 
 
 ## Usage
@@ -53,9 +53,8 @@
 
 
 ### Later
--Generalize Application to all US cities
--Trip Generation based on user input
--
+  -Generalize Application to all US cities
+  -Trip Generation based on user input
 
 
 ## Authors
