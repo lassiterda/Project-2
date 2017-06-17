@@ -243,7 +243,7 @@ function renderSideBarWithTrips(apiTrips) {
               }
           };
 
-          $newTrip.accordion.header.append("<a href='#' class='location-render'>" + apiTrips[i].name + "</a>").append("<p> Locations: " + apiTrips[i].length +  "/p>");
+          $newTrip.accordion.header.append("<a href='#' class='location-render'>" + apiTrips[i].name + "</a>")
           $newTrip.accordion.header.append($newTrip.accordion.selectAdd);
 
           //could this be a for each...? or jQuery .each()?
