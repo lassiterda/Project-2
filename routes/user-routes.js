@@ -2,7 +2,7 @@ const db = require('./../db/models');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const ResponeObj = require('./api-response-constructor.js');
+const ResponeObj = require('./api/api-response-constructor.js');
 
 //defining local login strategy using brypt to compare hashed pass with input
 passport.use(new LocalStrategy(
@@ -63,7 +63,6 @@ module.exports = function(app) {
 
   app.get("/user/logout", (req, res) => {
     req.logout();
-    req.flash("success_msg", "You have been logged out.")
     res.render("landing")
   })
 
