@@ -6,7 +6,6 @@ const rp = require('request-promise')
 const db = require('../../db/models')
 const ResponeObj = require('./api-response-constructor.js')
 
-
 //  GET one or all Users based on 
 router.get("/:id?", function(req, res) {
 
@@ -22,7 +21,7 @@ router.get("/:id?", function(req, res) {
     delete dbUser[0].dataValues.password
     delete dbUser[0].dataValues.userType
 
-//  sorting each trip's locations by TripLocation.sequenceNumber
+    //  sorting each trip's locations by TripLocation.sequenceNumber
     if(dbUser[0].Trips){
       dbUser[0].Trips
         .map((trip) => { return trip.Locations

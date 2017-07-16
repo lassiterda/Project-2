@@ -1,4 +1,3 @@
-
 const path = require('path')
 const express = require('express')
 const session = require('express-session')
@@ -9,15 +8,18 @@ const exphbs = require('express-handlebars')
 const passport = require('passport')
 
 //  routes
-const apiRouter = require('./routes/api/api-routes.js')
+const apiRouter = require('./routes/api/api-router.js')
+const pageRouter = require('./routes/page-router.js')
+const localAuthRouter = require('./routes/local-auth-router.js')
 
-//  Express, and port
+//  Express, port, and static assets directory 
 const app = express()
 app.set('port', process.env.PORT || 3000)
+app.use(express.static(path.join(__dirname, 'public')))
 
 // ---START MIDDLEWARE---
 
-//  mounting handlebars as app view engine
+//  Mounting handlebars as app view engine
   app.engine('handlebars', exphbs({defaultLayout: 'layout'}))
   app.set('view engine', 'handlebars')
 
@@ -28,10 +30,10 @@ app.set('port', process.env.PORT || 3000)
   app.use(bodyParser.json({ type: 'application/vnd.api+json' }))
   app.use(cookieParser())
 
-  //  mounting static assets middleware
+//  definine static assets folder
   app.use(express.static(path.join(__dirname, 'public')))
 
-  //  Mounting express-session
+//  Mounting express-session
   app.use(session({
       secret: 'secret',
       saveUninitialized: true,
@@ -40,36 +42,21 @@ app.set('port', process.env.PORT || 3000)
       }
   }))
 
-  // Passport Init
+// Passport Init, passport session init, loading strategy (dependency injection)
   app.use(passport.initialize())
   app.use(passport.session())
-
-  //  serialize session user id
-  passport.serializeUser(function(user, done) {
-    done(null, user.id)
-  })
-
-  //  deserialize session for user id
-  passport.deserializeUser(function(id, done) {
-    db.User.findById(id)
-      .then((dbUser) => { done(null, dbUser) })
-      .catch((err) => { done(err, null)})
-  })
+  require('./auth/localStrategy.js')(passport)
 
 // ---END MIDDLEWARE---
 
-//  load in sequelize models
+//  load sequelize models, associations (dependency injection)
 var db = require('./db/models')
 require('./db/associations')(db)
 
 //  load app routes
+app.use('/', pageRouter)
 app.use('/api', apiRouter)
-
-require('./routes/html-routes.js')(app)
-require('./routes/user-auth-routes.js')(app)
-
-//  Setting Port number as env variable OR 3000
-
+app.use('/user', localAuthRouter)
 
 //  TODO:   remove once deploying to production.
 const locationSeeds = require('./db/seed-locations.js')

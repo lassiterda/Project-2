@@ -18,7 +18,7 @@ $(document).ready(function(){
 		if(newUser.password === newUser.confirmPass){
 
 			//create new user by posting it to server
-			$.post("/user/register", newUser)
+			$.post("api/user/register", newUser)
 			.done(function(response) {
 
 				$("#first-name").val('');

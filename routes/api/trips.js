@@ -14,7 +14,6 @@ const checkAuthenticated = function(req, res, next){
 	}
 }
 
-
 //  GET one or all trips, including location information for each route.
 router.get("/:id?", checkAuthenticated, function(req,res){
 
