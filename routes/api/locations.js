@@ -38,7 +38,7 @@ router.post("/update/:id", function(req, res) {
 
       let APIresponse = JSON.parse(resp)
 
-      //  adding lat, lng to the request object to pass into db.
+  //  adding lat, lng to the request object to pass into db.
       req.body.lat = APIresponse.results[0].geometry.location.lat
       req.body.lng = APIresponse.results[0].geometry.location.lng
       req.body.Google_place_id = APIresponse.results[0].place_id
@@ -46,6 +46,8 @@ router.post("/update/:id", function(req, res) {
       return db.Location.update(req.body, { where: { id: req.params.id } })
     })
     .then(dbLocationId => { 
+
+//    Secondary find to fetch the whole Location Object (.update() does not return...) 
       return db.Location.findOne({ where: { id: req.params.id } }) 
     })
     .then(dbLocation => { 

@@ -1,5 +1,4 @@
 const db = require('./../db/models');
-const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const ResponeObj = require('./api/api-response-constructor.js');
@@ -7,28 +6,19 @@ const ResponeObj = require('./api/api-response-constructor.js');
 //defining local login strategy using brypt to compare hashed pass with input
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    console.log(username);
+
     db.User.findOne({ where: {userName: username} })
-      .then((dbUser) => {
-        if(!dbUser) {
-          console.log("Incorrect Username");
-          return done(null, false, {message: "Incorrect Username"})
-        }
-        else {
-
-          return bcrypt.compare(password, dbUser.password)
+    .then((dbUser) => {
+      return !dbUser
+        ? done(null, false, {message: "Incorrect Username"})
+        : bcrypt.compare(password, dbUser.password)
           .then((isMatch) => {
-            if(isMatch) {
-              return done(null, dbUser)
-            }
-            else {
-              return done(null, false, {message: "Incorrect Password"})
-            }
+            return isMatch 
+              ? done(null, dbUser)
+              : done(null, false, {message: "Incorrect Password"})
           })
-          .catch((err) => { done(err) })
-
-        }
-      })
+    })
+    .catch((err) => { done(err) })
   })
 )
 

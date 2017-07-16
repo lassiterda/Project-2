@@ -11,19 +11,17 @@ const passport = require('passport')
 //  routes
 const apiRouter = require('./routes/api/api-routes.js')
 
-//  Express, Router, and port
+//  Express, and port
 const app = express()
 app.set('port', process.env.PORT || 3000)
 
-
-
 // ---START MIDDLEWARE---
 
-  //  mounting handlebars as app view engine
+//  mounting handlebars as app view engine
   app.engine('handlebars', exphbs({defaultLayout: 'layout'}))
   app.set('view engine', 'handlebars')
 
-  //Mounting body-parser/cookie-parser middleware
+//  Mounting body-parser/cookie-parser middleware
   app.use(bodyParser.json())
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.text())
@@ -68,7 +66,7 @@ require('./db/associations')(db)
 app.use('/api', apiRouter)
 
 require('./routes/html-routes.js')(app)
-require('./routes/user-routes.js')(app)
+require('./routes/user-auth-routes.js')(app)
 
 //  Setting Port number as env variable OR 3000
 
